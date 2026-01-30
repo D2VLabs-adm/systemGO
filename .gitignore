@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+*.log
+.benchmarks/
+
+# Test outputs
+reports/
+*.png
+*.jpg
+*.mp4
+*.webm
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+temp/
+logs/
+
+# Large datasets (download separately via scripts/download_kaggle.py)
+fixtures/kaggle_datasets/
+
+
+
+
+
+
+
+

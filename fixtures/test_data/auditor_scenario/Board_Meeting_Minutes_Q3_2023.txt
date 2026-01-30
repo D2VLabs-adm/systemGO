@@ -1,0 +1,83 @@
+
+BOARD MEETING MINUTES
+Acme Corporation
+Q3 2023 - September 15, 2023
+
+ATTENDEES:
+- John Smith, CEO
+- Sarah Johnson, CFO
+- Michael Brown, COO
+- Emily Davis, Board Chair
+- Robert Wilson, Board Member
+- Jennifer Lee, Board Member
+
+AGENDA:
+1. Q3 Financial Review
+2. Capital Expenditure Proposals
+3. Debt Refinancing Discussion
+4. New Equipment Purchases
+
+---
+
+1. Q3 FINANCIAL REVIEW
+
+Sarah Johnson presented Q3 financial results:
+- Revenue for Q3: $2,150,000 (up 15% YoY)
+- Operating expenses: $520,000
+- Net income projection for full year: $1,400,000
+
+The Board noted strong revenue growth and approved continued investment in operations.
+
+---
+
+2. CAPITAL EXPENDITURE PROPOSALS
+
+Michael Brown proposed three major capital expenditures for Q4:
+
+a) Manufacturing Equipment Upgrade - $250,000
+   - Approved unanimously (Vote: 6-0)
+   - Expected to improve efficiency by 20%
+   
+b) New Warehouse Facility - $500,000
+   - Approved (Vote: 5-1, Wilson dissenting)
+   - Construction to begin Q1 2024
+   
+c) IT Infrastructure Modernization - $180,000
+   - Tabled for further review
+   - Requires additional cost-benefit analysis
+
+TOTAL APPROVED CAPEX: $750,000
+
+---
+
+3. DEBT REFINANCING
+
+Sarah Johnson presented debt refinancing proposal:
+- Current long-term debt: $1,800,000
+- Proposed new facility: $2,100,000
+- Interest rate reduction from 6.5% to 5.2%
+- Approved unanimously (Vote: 6-0)
+
+---
+
+4. NEW EQUIPMENT PURCHASES
+
+Robert Wilson raised concerns about equipment purchases totaling $180,000 
+that appeared in preliminary expense reports but were not reflected in 
+the capital budget or cash flow projections.
+
+Sarah Johnson noted these were approved by CEO under discretionary authority
+(<$200K) and will be reflected in Q4 statements.
+
+Board requested detailed report on all discretionary expenditures >$100K.
+
+---
+
+ACTION ITEMS:
+1. CFO to provide detailed capex breakdown by month (Sarah Johnson, due Oct 1)
+2. COO to submit warehouse construction timeline (Michael Brown, due Oct 15)
+3. CFO to provide discretionary spending report (Sarah Johnson, due Sep 30)
+
+Meeting adjourned at 4:30 PM.
+
+Recorded by: Jane Martinez, Corporate Secretary

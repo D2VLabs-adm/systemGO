@@ -1,0 +1,32 @@
+# Core Testing - Latest versions
+pytest
+pytest-asyncio
+pytest-html
+pytest-benchmark
+pytest-xdist
+pytest-timeout
+pytest-cov
+httpx
+
+# E2E Testing
+playwright
+
+# Load Testing
+locust
+
+# RAG Evaluation (with local LLM support)
+ragas
+langchain
+langchain-community
+
+# Data Generation & Utilities
+pandas
+numpy
+psutil
+faker
+Pillow
+requests
+
+# Additional dependencies
+openpyxl
+pyarrow

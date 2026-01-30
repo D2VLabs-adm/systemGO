@@ -1,0 +1,167 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    SYSTEM GO - QUICK REFERENCE CARD                          ║
+║              Investigation & Repair Workflow IS APPLIED                      ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 🎯 THE WORKFLOW                                                             ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+    Run Tests → Fail → Investigate → Fix → Verify → Document → Repeat → Success ✅
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 📋 FOR EVERY FAILURE                                                        ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  1. 🔍 INVESTIGATE
+     └─ pytest path/to/test.py::test_name -vv -s
+     └─ Check HTML report, screenshots, logs
+     └─ Identify root cause
+
+  2. 🛠️ FIX
+     └─ Backend down? → Start it
+     └─ Model missing? → Fix path or switch model
+     └─ Performance? → Optimize or adjust threshold
+     └─ Bug? → Fix the code
+     └─ Data? → Regenerate test data
+
+  3. ✅ VERIFY
+     └─ Re-run test
+     └─ Check for regressions
+     └─ Confirm pass
+
+  4. 📊 DOCUMENT
+     └─ Add to TEST_FINDINGS.md
+     └─ Update golden dataset
+     └─ Note configuration changes
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 🚀 FAST COMMANDS                                                            ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  # Initial run
+  PYTHONPATH=. pytest rangerio_tests/ -v
+
+  # Single test debug
+  PYTHONPATH=. pytest path/to/test.py::test_name -vv -s
+
+  # Check services
+  curl http://127.0.0.1:9000/health  # Backend
+  curl http://localhost:5173          # Frontend
+
+  # Visual E2E debug
+  export PLAYWRIGHT_HEADLESS=false
+  PYTHONPATH=. pytest rangerio_tests/frontend/ -v
+
+  # Switch model
+  export TEST_MODEL_NAME="llama-3-2-3b-instruct-q4-k-m"
+
+  # Re-run failures only
+  PYTHONPATH=. pytest --lf -v
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 📚 DOCUMENTATION                                                            ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  📘 TEST_FAILURE_GUIDE.md
+     └─ Complete investigation guide
+     └─ 6 common scenarios with fixes
+     └─ Debugging tools reference
+
+  📗 INVESTIGATION_WORKFLOW.md
+     └─ Quick checklist
+     └─ Fast reference
+
+  📙 TESTING_EXECUTION_PLAN.md
+     └─ Complete process commitment
+     └─ Timeline & deliverables
+
+  📕 WORKFLOW_CONFIRMATION.md
+     └─ Detailed confirmation
+     └─ Example workflows
+
+  📖 MODEL_TESTING_GUIDE.md
+     └─ Model configurations
+     └─ Testing strategies
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ ✅ DELIVERABLES                                                             ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  ✅ TEST_FINDINGS.md - All issues & resolutions
+  ✅ HTML Reports - Visual test results
+  ✅ Screenshots - E2E debugging
+  ✅ Model Comparison - Qwen 4B vs Llama 3.2 3B
+  ✅ Golden Dataset - Validated outputs
+  ✅ Configuration - Calibrated thresholds
+  ✅ Recommendations - Improvements & optimizations
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 🎯 EXPECTED RESULTS                                                         ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  First Run:     30-50% pass (normal!) → Investigate
+  After Cycle 1: 80-90% pass           → Keep fixing
+  After Cycle 2: 95-98% pass           → Almost there
+  Final:         98-100% pass          → Success! ✅
+
+  Total Time: 5-8 hours (includes full investigation & repair)
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ ⚡ COMMON FIXES                                                             ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  Backend not available:
+    cd /Users/vadim/.cursor/worktrees/rangerio-backend__Workspace_/udp
+    python api/server.py
+
+  Frontend not loading:
+    cd /Users/vadim/.cursor/worktrees/rangerio-backend__Workspace_/udp/frontend
+    npm run dev
+
+  Model not found:
+    # Check: ls -lh /Users/vadim/onprem_data/models/
+    # Fix path in: model_configs.json
+
+  Performance threshold:
+    # Edit: rangerio_tests/config.py
+    MAX_IMPORT_TIME_S: int = 90  # Increase with justification
+
+  Test data issues:
+    PYTHONPATH=. python rangerio_tests/utils/data_generators.py
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 💡 REMEMBER                                                                 ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  ✅ Investigation & repair IS the workflow (not optional)
+  ✅ Every failure WILL be investigated
+  ✅ Root causes WILL be fixed
+  ✅ All fixes WILL be verified
+  ✅ Everything WILL be documented
+  ✅ Iteration continues until success
+
+  "The goal is not to pass tests - it's to make RangerIO better!"
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 🚀 READY TO START?                                                          ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  cd "/Users/vadim/.cursor/worktrees/Validator/SYSTEM GO"
+  source venv/bin/activate
+  PYTHONPATH=. pytest rangerio_tests/ -v
+
+  → Then investigation & repair workflow begins! 🔧
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║              SYSTEM GO = Testing + Investigation + Repair                    ║
+║                   All guides ready, all tools configured!                    ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+
+
+
+
+
+
+

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RangerIO Interactive Validation Report - 20251229_174957</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0e1a;
+            color: #e0e0e0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a1f2e 0%, #2d3748 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid #3d4556;
+        }
+        
+        .header h1 {
+            color: #10b981;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header .stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            background: #1a1f2e;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid #3d4556;
+        }
+        
+        .stat-label {
+            color: #9ca3af;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .stat-value {
+            color: #10b981;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        .validation-item {
+            background: #1a1f2e;
+            border: 1px solid #3d4556;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .validation-item:hover {
+            border-color: #10b981;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.1);
+        }
+        
+        .validation-item.validated {
+            border-color: #10b981;
+            background: #0f1419;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #3d4556;
+        }
+        
+        .item-number {
+            background: #10b981;
+            color: #0a0e1a;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .item-type {
+            background: #3d4556;
+            color: #10b981;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .question {
+            color: #10b981;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .answer {
+            background: #0f1419;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #10b981;
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+        }
+        
+        .contexts {
+            margin: 20px 0;
+        }
+        
+        .context {
+            background: #0f1419;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 2px solid #6b7280;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+        
+        .chart-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .chart-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            border: 1px solid #3d4556;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .comparison-item {
+            background: #0f1419;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #3d4556;
+        }
+        
+        .style-tag {
+            background: #10b981;
+            color: #0a0e1a;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .validation-form {
+            background: #0f1419;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .validation-form h4 {
+            color: #10b981;
+            margin-bottom: 15px;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .radio-option {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+        
+        .radio-option label {
+            display: block;
+            padding: 12px 20px;
+            background: #1a1f2e;
+            border: 2px solid #3d4556;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+        
+        .radio-option input[type="radio"]:checked + label {
+            background: #10b981;
+            color: #0a0e1a;
+            border-color: #10b981;
+            font-weight: bold;
+        }
+        
+        .radio-option.accurate label { border-color: #10b981; }
+        .radio-option.partial label { border-color: #f59e0b; }
+        .radio-option.inaccurate label { border-color: #ef4444; }
+        
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            background: #1a1f2e;
+            border: 1px solid #3d4556;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-family: inherit;
+            resize: vertical;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+        
+        .actions {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background: #10b981;
+            color: #0a0e1a;
+        }
+        
+        .btn-primary:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #3d4556;
+            color: #e0e0e0;
+        }
+        
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+        
+        .progress {
+            background: #1a1f2e;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-right: auto;
+        }
+        
+        .save-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: #0a0e1a;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .metadata {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 10px;
+        }
+        
+        .instructions {
+            background: #1a1f2e;
+            border: 1px solid #3d4556;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .instructions h3 {
+            color: #10b981;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+            color: #9ca3af;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧪 RangerIO Interactive Validation Report</h1>
+        <p style="color: #9ca3af; margin-top: 10px;">Report ID: 20251229_174957</p>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-label">Total Items</div>
+                <div class="stat-value" id="total-items">5</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Validated</div>
+                <div class="stat-value" id="validated-count">0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Pending</div>
+                <div class="stat-value" id="pending-count">5</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="instructions">
+        <h3>📝 How to Use This Report</h3>
+        <ol>
+            <li><strong>Review each item</strong> - Read the question, answer, and contexts carefully</li>
+            <li><strong>Select accuracy rating</strong> - Choose ✅ Accurate, ⚠️ Partial, or ❌ Inaccurate</li>
+            <li><strong>Add notes</strong> - Explain your reasoning, especially for partial/inaccurate items</li>
+            <li><strong>Auto-saves</strong> - Progress saves every 30 seconds automatically</li>
+            <li><strong>Export when done</strong> - Click "Export Results" to download JSON file</li>
+        </ol>
+    </div>
+    
+    <div id="validation-items">
+        
+        <div class="validation-item" data-item-id="0" data-item-type="rag_answer">
+            <div class="item-header">
+                <span class="item-number">Item #1</span>
+                <span class="item-type">RAG Answer</span>
+            </div>
+            
+            <div class="question">❓ What columns are in this dataset?</div>
+            
+            <div class="answer">
+                <strong>Answer:</strong><br>
+                **Columns in the Dataset:**
+
+The dataset contains 14 columns:
+
+1. **Country**: The name of each country
+2. **Region**: The region where each country is located (Sub-Saharan Africa, Southern Asia, Middle East and Northern Africa)
+3. **Happiness Rank**: A ranking from 151 to 157 representing happiness in the respective countries
+4. **Happiness Score**:
+	* Lower Confidence Interval: An interval with a lower bound of approximately 2.732 for Happiness Scores ranging up to an upper value (not specified) 
+5. *Upper Confidence Intervals:*   Upper-bound values, which range from -3 at one extreme and the previously-mentioned-upper-value on another.
+6. **Economy (GDP per Capita)**: The economic performance of each country in terms GDP per capita
+7. **Family**: An indicator variable with a value indicating whether family structure plays an essential role 
+8.  *Health (Life Expectancy)*   A life expectancy metric used as the primary measure to quantify overall well-being.
+9*Freedom*: Measures societal freedom by ranking countries based on factors like personal freedoms and human rights
+10.*Trust Government Corruption:* Indicating how much citizens trust their respective government’s institutions 
+11.  *Generosity:    Demonstrates generosity in social interactions, measured through a subjective scoring system*
+12 .Dystopia Residual*: Reflects aspects of societal stability not accounted for by other indicators.
+            </div>
+            
+            <div class="contexts">
+                <strong>Retrieved Contexts (4):</strong>
+                <div class="context"><strong>Context 1:</strong> {'start_row': 151, 'total_rows': 157, 'filename': 'datasource_109_data', 'type': 'data_source_data', 'format': 'markdown_table', 'chunk_index': 3, 'end_row': 157, 'data_source_id': 109}</div><div class="context"><strong>Context 2:</strong> {'type': 'data_source_data', 'chunk_index': 3, 'format': 'markdown_table', 'end_row': 157, 'total_rows': 157, 'data_source_id': 82, 'filename': 'datasource_82_data', 'start_row': 151}</div><div class="context"><strong>Context 3:</strong> {'filename': 'datasource_112_profile', 'data_source_id': 112, 'chunk_index': 0, 'type': 'data_source_profile'}</div><div class="context"><strong>Context 4:</strong> {'data_source_id': 61, 'chunk_index': 0, 'filename': 'datasource_61_profile', 'type': 'data_source_profile'}</div>
+            </div>
+            
+            <div class="metadata">Metadata: {'dataset_type': 'golden'}</div>
+            
+            <div class="validation-form">
+                <h4>Your Validation:</h4>
+                <div class="radio-group">
+                    <div class="radio-option accurate">
+                        <input type="radio" id="item0_accurate" name="validation_0" value="accurate">
+                        <label for="item0_accurate">✅ Accurate</label>
+                    </div>
+                    <div class="radio-option partial">
+                        <input type="radio" id="item0_partial" name="validation_0" value="partial">
+                        <label for="item0_partial">⚠️ Partially Accurate</label>
+                    </div>
+                    <div class="radio-option inaccurate">
+                        <input type="radio" id="item0_inaccurate" name="validation_0" value="inaccurate">
+                        <label for="item0_inaccurate">❌ Inaccurate/Hallucination</label>
+                    </div>
+                </div>
+                <textarea name="notes_0" placeholder="Add your notes here (optional)...&#10;&#10;Examples:&#10;- Answer is correct but could be more specific&#10;- Missing important context about X&#10;- Hallucinated the date/number&#10;- Great answer, fully supported by contexts"></textarea>
+            </div>
+        </div>
+        
+        <div class="validation-item" data-item-id="1" data-item-type="rag_answer">
+            <div class="item-header">
+                <span class="item-number">Item #2</span>
+                <span class="item-type">RAG Answer</span>
+            </div>
+            
+            <div class="question">❓ How many records are there?</div>
+            
+            <div class="answer">
+                <strong>Answer:</strong><br>
+                **Question:** How many records are there?
+
+After analyzing the data, I found that:
+
+* The total number of rows in the dataset is 550.
+ 
+To provide a more accurate answer: There were initially reported to be **891**, however we have only been provided with Rows #501-#550.
+            </div>
+            
+            <div class="contexts">
+                <strong>Retrieved Contexts (4):</strong>
+                <div class="context"><strong>Context 1:</strong> {'chunk_index': 10, 'format': 'markdown_table', 'end_row': 550, 'filename': 'datasource_87_data', 'type': 'data_source_data', 'data_source_id': 87, 'total_rows': 891, 'start_row': 501}</div><div class="context"><strong>Context 2:</strong> {'end_row': 550, 'chunk_index': 10, 'total_rows': 891, 'filename': 'datasource_73_data', 'type': 'data_source_data', 'data_source_id': 73, 'start_row': 501, 'format': 'markdown_table'}</div><div class="context"><strong>Context 3:</strong> {'end_row': 550, 'data_source_id': 129, 'filename': 'datasource_129_data', 'start_row': 501, 'total_rows': 891, 'type': 'data_source_data', 'chunk_index': 10, 'format': 'markdown_table'}</div><div class="context"><strong>Context 4:</strong> {'type': 'data_source_data', 'end_row': 550, 'start_row': 501, 'chunk_index': 10, 'format': 'markdown_table', 'total_rows': 891, 'data_source_id': 114, 'filename': 'datasource_114_data'}</div>
+            </div>
+            
+            <div class="metadata">Metadata: {'dataset_type': 'golden'}</div>
+            
+            <div class="validation-form">
+                <h4>Your Validation:</h4>
+                <div class="radio-group">
+                    <div class="radio-option accurate">
+                        <input type="radio" id="item1_accurate" name="validation_1" value="accurate">
+                        <label for="item1_accurate">✅ Accurate</label>
+                    </div>
+                    <div class="radio-option partial">
+                        <input type="radio" id="item1_partial" name="validation_1" value="partial">
+                        <label for="item1_partial">⚠️ Partially Accurate</label>
+                    </div>
+                    <div class="radio-option inaccurate">
+                        <input type="radio" id="item1_inaccurate" name="validation_1" value="inaccurate">
+                        <label for="item1_inaccurate">❌ Inaccurate/Hallucination</label>
+                    </div>
+                </div>
+                <textarea name="notes_1" placeholder="Add your notes here (optional)...&#10;&#10;Examples:&#10;- Answer is correct but could be more specific&#10;- Missing important context about X&#10;- Hallucinated the date/number&#10;- Great answer, fully supported by contexts"></textarea>
+            </div>
+        </div>
+        
+        <div class="validation-item" data-item-id="2" data-item-type="rag_answer">
+            <div class="item-header">
+                <span class="item-number">Item #3</span>
+                <span class="item-type">RAG Answer</span>
+            </div>
+            
+            <div class="question">❓ What is the date range of this data?</div>
+            
+            <div class="answer">
+                <strong>Answer:</strong><br>
+                **Date Range Analysis**
+
+After analyzing the data, I found that it spans a period of time from **March 6th (2012)** to an unknown date in March.
+
+To determine this range accurately, let's examine specific dates:
+
+1. The earliest record is for January and February have been omitted as they start with year 1939.
+	* Record: `1905-03-12`
+    * This can be matched against the second dataset of Google.xlsx | Type xlsx
+2. By examining date records in both datasets, there are few consistent dates; however:
+   - Both include values from March but differ on later exact ending month.
+
+**Given incomplete data and inconsistent pattern:**
+The most accurate estimate for a given complete range can be calculated with:
+
+1) `1905-03` to the start of 1939 dataset which is February, omitted due to inconsistency in provided records.
+            </div>
+            
+            <div class="contexts">
+                <strong>Retrieved Contexts (1):</strong>
+                <div class="context"><strong>Context 1:</strong> {'total_rows': 4041, 'type': 'data_source_data', 'filename': 'datasource_93_data', 'chunk_index': 38, 'format': 'markdown_table', 'end_row': 1950, 'data_source_id': 93, 'start_row': 1901}</div>
+            </div>
+            
+            <div class="metadata">Metadata: {'dataset_type': 'golden'}</div>
+            
+            <div class="validation-form">
+                <h4>Your Validation:</h4>
+                <div class="radio-group">
+                    <div class="radio-option accurate">
+                        <input type="radio" id="item2_accurate" name="validation_2" value="accurate">
+                        <label for="item2_accurate">✅ Accurate</label>
+                    </div>
+                    <div class="radio-option partial">
+                        <input type="radio" id="item2_partial" name="validation_2" value="partial">
+                        <label for="item2_partial">⚠️ Partially Accurate</label>
+                    </div>
+                    <div class="radio-option inaccurate">
+                        <input type="radio" id="item2_inaccurate" name="validation_2" value="inaccurate">
+                        <label for="item2_inaccurate">❌ Inaccurate/Hallucination</label>
+                    </div>
+                </div>
+                <textarea name="notes_2" placeholder="Add your notes here (optional)...&#10;&#10;Examples:&#10;- Answer is correct but could be more specific&#10;- Missing important context about X&#10;- Hallucinated the date/number&#10;- Great answer, fully supported by contexts"></textarea>
+            </div>
+        </div>
+        
+        <div class="validation-item" data-item-id="3" data-item-type="rag_answer">
+            <div class="item-header">
+                <span class="item-number">Item #4</span>
+                <span class="item-type">RAG Answer</span>
+            </div>
+            
+            <div class="question">❓ Summarize the key statistics</div>
+            
+            <div class="answer">
+                <strong>Answer:</strong><br>
+                Here are the summaries of each dataset:
+
+**WorldCups.xlsx**
+
+The FIFA World Cup tournament data contains 20 rows and 10 columns, providing a wealth of information on various aspects of past tournaments. The key statistics include:
+* Total Goals Scored: Sum = **2379**
+* Number of Qualified Teams per Year (average): n/a
+* Matches Played Per Event: Average ≈ **64** matches played overall with total sum as close to 836, indicating individual match data points.
+Potential use cases for this dataset would involve analyzing historical performance trends in World Cup football and exploring participation numbers over time.
+
+Some insights:
+- Countries that have won the most titles are not explicitly provided but can be inferred from winner information
+- Patterns of goals scored per country or team could provide interesting comparisons
+
+**test_data.csv**
+
+The test data CSV contains 5 rows with columns for user id, name, age (integer), email address pattern and score. Key statistics:
+* Total Sum of Ages: **150**
+* Aggregate Score Across All Users:** **439.5 **
+There are also highest values provided such as maximum ages.
+
+Observation on the scores' distribution can provide valuable insights into performance patterns among users.
+The data indicates a broad age range (as young as 10 and up to around)
+            </div>
+            
+            <div class="contexts">
+                <strong>Retrieved Contexts (1):</strong>
+                <div class="context"><strong>Context 1:</strong> {'data_source_id': 30, 'column_count': 10, 'row_count': 20, 'type': 'data_source_summary', 'data_source_type': 'xlsx', 'data_source_name': 'WorldCups.xlsx'}</div>
+            </div>
+            
+            <div class="metadata">Metadata: {'dataset_type': 'golden'}</div>
+            
+            <div class="validation-form">
+                <h4>Your Validation:</h4>
+                <div class="radio-group">
+                    <div class="radio-option accurate">
+                        <input type="radio" id="item3_accurate" name="validation_3" value="accurate">
+                        <label for="item3_accurate">✅ Accurate</label>
+                    </div>
+                    <div class="radio-option partial">
+                        <input type="radio" id="item3_partial" name="validation_3" value="partial">
+                        <label for="item3_partial">⚠️ Partially Accurate</label>
+                    </div>
+                    <div class="radio-option inaccurate">
+                        <input type="radio" id="item3_inaccurate" name="validation_3" value="inaccurate">
+                        <label for="item3_inaccurate">❌ Inaccurate/Hallucination</label>
+                    </div>
+                </div>
+                <textarea name="notes_3" placeholder="Add your notes here (optional)...&#10;&#10;Examples:&#10;- Answer is correct but could be more specific&#10;- Missing important context about X&#10;- Hallucinated the date/number&#10;- Great answer, fully supported by contexts"></textarea>
+            </div>
+        </div>
+        
+        <div class="validation-item" data-item-id="4" data-item-type="rag_answer">
+            <div class="item-header">
+                <span class="item-number">Item #5</span>
+                <span class="item-type">RAG Answer</span>
+            </div>
+            
+            <div class="question">❓ List the unique values in the category column</div>
+            
+            <div class="answer">
+                <strong>Answer:</strong><br>
+                **Unique Values in the "Genre" Category**
+
+The unique values in the genre category are:
+
+1. **Non Fiction**: 15 occurrences
+2. **Fiction**: 10 occurrences
+
+No other genres appear as a value within this dataset.
+
+Would you like me to analyze anything else from these data?
+            </div>
+            
+            <div class="contexts">
+                <strong>Retrieved Contexts (3):</strong>
+                <div class="context"><strong>Context 1:</strong> {'data_source_id': 83, 'end_row': 250, 'type': 'data_source_data', 'filename': 'datasource_83_data', 'start_row': 201, 'format': 'markdown_table', 'chunk_index': 4, 'total_rows': 550}</div><div class="context"><strong>Context 2:</strong> {'type': 'data_source_data', 'total_rows': 550, 'format': 'markdown_table', 'start_row': 201, 'end_row': 250, 'data_source_id': 100, 'chunk_index': 4, 'filename': 'datasource_100_data'}</div><div class="context"><strong>Context 3:</strong> {'data_source_id': 110, 'start_row': 201, 'total_rows': 550, 'end_row': 250, 'type': 'data_source_data', 'format': 'markdown_table', 'chunk_index': 4, 'filename': 'datasource_110_data'}</div>
+            </div>
+            
+            <div class="metadata">Metadata: {'dataset_type': 'golden'}</div>
+            
+            <div class="validation-form">
+                <h4>Your Validation:</h4>
+                <div class="radio-group">
+                    <div class="radio-option accurate">
+                        <input type="radio" id="item4_accurate" name="validation_4" value="accurate">
+                        <label for="item4_accurate">✅ Accurate</label>
+                    </div>
+                    <div class="radio-option partial">
+                        <input type="radio" id="item4_partial" name="validation_4" value="partial">
+                        <label for="item4_partial">⚠️ Partially Accurate</label>
+                    </div>
+                    <div class="radio-option inaccurate">
+                        <input type="radio" id="item4_inaccurate" name="validation_4" value="inaccurate">
+                        <label for="item4_inaccurate">❌ Inaccurate/Hallucination</label>
+                    </div>
+                </div>
+                <textarea name="notes_4" placeholder="Add your notes here (optional)...&#10;&#10;Examples:&#10;- Answer is correct but could be more specific&#10;- Missing important context about X&#10;- Hallucinated the date/number&#10;- Great answer, fully supported by contexts"></textarea>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="actions">
+        <div class="progress">
+            <span id="progress-text">0 / 5 validated</span>
+        </div>
+        <button class="btn btn-secondary" onclick="autoSave()">💾 Auto-Save</button>
+        <button class="btn btn-primary" onclick="exportResults()">📥 Export Results</button>
+    </div>
+    
+    <div class="save-notification" id="save-notification">
+        ✅ Progress auto-saved!
+    </div>
+    
+    <script>
+        const REPORT_ID = '20251229_174957';
+        
+        // Auto-save every 30 seconds
+        let autoSaveInterval = setInterval(autoSave, 30000);
+        
+        // Load previous responses if available
+        window.addEventListener('DOMContentLoaded', loadSavedResponses);
+        
+        // Save on any change
+        document.addEventListener('change', function(e) {
+            if (e.target.matches('input[type="radio"], textarea')) {
+                autoSave();
+                updateStats();
+            }
+        });
+        
+        function loadSavedResponses() {
+            const saved = localStorage.getItem('validation_responses_' + REPORT_ID);
+            if (saved) {
+                const responses = JSON.parse(saved);
+                for (const [itemId, data] of Object.entries(responses)) {
+                    const radio = document.querySelector(`input[name="validation_${itemId}"][value="${data.choice}"]`);
+                    if (radio) radio.checked = true;
+                    
+                    const notes = document.querySelector(`textarea[name="notes_${itemId}"]`);
+                    if (notes) notes.value = data.notes || '';
+                }
+                updateStats();
+                console.log('✓ Loaded saved responses');
+            }
+        }
+        
+        function autoSave() {
+            const responses = {};
+            const items = document.querySelectorAll('.validation-item');
+            
+            items.forEach(item => {
+                const itemId = item.dataset.itemId;
+                const radio = item.querySelector('input[type="radio"]:checked');
+                const notes = item.querySelector('textarea');
+                
+                if (radio || (notes && notes.value)) {
+                    responses[itemId] = {
+                        choice: radio ? radio.value : null,
+                        notes: notes ? notes.value : '',
+                        timestamp: new Date().toISOString()
+                    };
+                }
+            });
+            
+            localStorage.setItem('validation_responses_' + REPORT_ID, JSON.stringify(responses));
+            
+            // Show notification
+            const notification = document.getElementById('save-notification');
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 2000);
+        }
+        
+        function updateStats() {
+            const items = document.querySelectorAll('.validation-item');
+            let validated = 0;
+            
+            items.forEach(item => {
+                const radio = item.querySelector('input[type="radio"]:checked');
+                if (radio) {
+                    validated++;
+                    item.classList.add('validated');
+                } else {
+                    item.classList.remove('validated');
+                }
+            });
+            
+            document.getElementById('validated-count').textContent = validated;
+            document.getElementById('pending-count').textContent = items.length - validated;
+            document.getElementById('progress-text').textContent = `${validated} / ${items.length} validated`;
+        }
+        
+        function exportResults() {
+            const responses = {};
+            const items = document.querySelectorAll('.validation-item');
+            
+            items.forEach(item => {
+                const itemId = item.dataset.itemId;
+                const itemType = item.dataset.itemType;
+                const radio = item.querySelector('input[type="radio"]:checked');
+                const notes = item.querySelector('textarea');
+                
+                responses[itemId] = {
+                    item_id: parseInt(itemId),
+                    item_type: itemType,
+                    choice: radio ? radio.value : 'not_validated',
+                    notes: notes ? notes.value : '',
+                    timestamp: new Date().toISOString()
+                };
+            });
+            
+            const result = {
+                report_id: REPORT_ID,
+                generated_at: new Date().toISOString(),
+                total_items: items.length,
+                validated_items: Object.values(responses).filter(r => r.choice !== 'not_validated').length,
+                responses: responses
+            };
+            
+            // Download as JSON
+            const blob = new Blob([JSON.stringify(result, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'validation_results_' + REPORT_ID + '.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // Also save to localStorage as backup
+            localStorage.setItem('validation_results_' + REPORT_ID, JSON.stringify(result));
+            
+            alert('✅ Results exported successfully!\n\nFile: validation_results_' + REPORT_ID + '.json\nItems validated: ' + result.validated_items + ' / ' + result.total_items);
+        }
+        
+        // Update stats on load
+        updateStats();
+    </script>
+</body>
+</html>

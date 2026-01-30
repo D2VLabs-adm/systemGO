@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RangerIO Interactive Validation Report - 20251230_075732</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0e1a;
+            color: #e0e0e0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a1f2e 0%, #2d3748 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid #3d4556;
+        }
+        
+        .header h1 {
+            color: #10b981;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header .stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            background: #1a1f2e;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid #3d4556;
+        }
+        
+        .stat-label {
+            color: #9ca3af;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .stat-value {
+            color: #10b981;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        .validation-item {
+            background: #1a1f2e;
+            border: 1px solid #3d4556;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .validation-item:hover {
+            border-color: #10b981;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.1);
+        }
+        
+        .validation-item.validated {
+            border-color: #10b981;
+            background: #0f1419;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #3d4556;
+        }
+        
+        .item-number {
+            background: #10b981;
+            color: #0a0e1a;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .item-type {
+            background: #3d4556;
+            color: #10b981;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .question {
+            color: #10b981;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .answer {
+            background: #0f1419;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #10b981;
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+        }
+        
+        .contexts {
+            margin: 20px 0;
+        }
+        
+        .context {
+            background: #0f1419;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 2px solid #6b7280;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+        
+        .chart-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .chart-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            border: 1px solid #3d4556;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .comparison-item {
+            background: #0f1419;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #3d4556;
+        }
+        
+        .style-tag {
+            background: #10b981;
+            color: #0a0e1a;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .validation-form {
+            background: #0f1419;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .validation-form h4 {
+            color: #10b981;
+            margin-bottom: 15px;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .radio-option {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+        
+        .radio-option label {
+            display: block;
+            padding: 12px 20px;
+            background: #1a1f2e;
+            border: 2px solid #3d4556;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+        
+        .radio-option input[type="radio"]:checked + label {
+            background: #10b981;
+            color: #0a0e1a;
+            border-color: #10b981;
+            font-weight: bold;
+        }
+        
+        .radio-option.accurate label { border-color: #10b981; }
+        .radio-option.partial label { border-color: #f59e0b; }
+        .radio-option.inaccurate label { border-color: #ef4444; }
+        
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            background: #1a1f2e;
+            border: 1px solid #3d4556;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-family: inherit;
+            resize: vertical;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+        
+        .actions {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background: #10b981;
+            color: #0a0e1a;
+        }
+        
+        .btn-primary:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #3d4556;
+            color: #e0e0e0;
+        }
+        
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+        
+        .progress {
+            background: #1a1f2e;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-right: auto;
+        }
+        
+        .save-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: #0a0e1a;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .metadata {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 10px;
+        }
+        
+        .instructions {
+            background: #1a1f2e;
+            border: 1px solid #3d4556;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .instructions h3 {
+            color: #10b981;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+            color: #9ca3af;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧪 RangerIO Interactive Validation Report</h1>
+        <p style="color: #9ca3af; margin-top: 10px;">Report ID: 20251230_075732</p>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-label">Total Items</div>
+                <div class="stat-value" id="total-items">5</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Validated</div>
+                <div class="stat-value" id="validated-count">0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Pending</div>
+                <div class="stat-value" id="pending-count">5</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="instructions">
+        <h3>📝 How to Use This Report</h3>
+        <ol>
+            <li><strong>Review each item</strong> - Read the question, answer, and contexts carefully</li>
+            <li><strong>Select accuracy rating</strong> - Choose ✅ Accurate, ⚠️ Partial, or ❌ Inaccurate</li>
+            <li><strong>Add notes</strong> - Explain your reasoning, especially for partial/inaccurate items</li>
+            <li><strong>Auto-saves</strong> - Progress saves every 30 seconds automatically</li>
+            <li><strong>Export when done</strong> - Click "Export Results" to download JSON file</li>
+        </ol>
+    </div>
+    
+    <div id="validation-items">
+        
+        <div class="validation-item mode-comparison" data-item-id="0" data-item-type="mode_comparison">
+            <div class="item-header">
+                <span class="item-number">Item #1</span>
+                <span class="item-type">Mode Comparison - factual</span>
+            </div>
+            
+            <div class="query-info">
+                <div class="question">❓ How many records are in this dataset?</div>
+                <div class="expected">✅ Expected: ~1000 records</div>
+            </div>
+            
+            <div class="modes-container">
+                
+            <div class="mode-column" style="border-left: 4px solid #6B7280;">
+                <div class="mode-header" style="background: #6B728020;">
+                    <h3 style="color: #6B7280;">Basic</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 40571ms</span>
+                        <span class="stat confidence low">🎯 0.30 (low)</span>
+                        <span class="stat">📄 3 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-safe">✅ No Hallucination</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text"><think>
+Okay, let's see. The user is asking to count the number of records in this dataset. They provided a chunk from Titanic.xlsx, rows 601-650.
+
+Looking at the data table they showed, each row starting from #601 up to #650 (but the last one is truncated). Wait, the first entry is 601 and then there's a line with "..." [truncated] for 619. But in the actual rows listed, there are entries numbered 601 through 624? Because row numbers go up to 625 maybe?
+
+Wait, let me check again. The user provided data from rows 601-650 of ds_14_Titanic.xlsx. However, in the table they showed, there are entries for #601 to #623 (since row 623 is listed as "Lobb..."), then it says "... [truncated]". But maybe that's just a formatting issue and actually all rows from 601-650 were present.</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_0_basic" value="1" id="star_0_basic_1"><label for="star_0_basic_1">⭐</label><input type="radio" name="rating_0_basic" value="2" id="star_0_basic_2"><label for="star_0_basic_2">⭐</label><input type="radio" name="rating_0_basic" value="3" id="star_0_basic_3"><label for="star_0_basic_3">⭐</label><input type="radio" name="rating_0_basic" value="4" id="star_0_basic_4"><label for="star_0_basic_4">⭐</label><input type="radio" name="rating_0_basic" value="5" id="star_0_basic_5"><label for="star_0_basic_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-column" style="border-left: 4px solid #3B82F6;">
+                <div class="mode-header" style="background: #3B82F620;">
+                    <h3 style="color: #3B82F6;">Assistant</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 19750ms</span>
+                        <span class="stat confidence low">🎯 0.30 (low)</span>
+                        <span class="stat">📄 3 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-info">🔍 Clarification</span> <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-safe">✅ No Hallucination</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text"><think>
+Okay, let's see. The user is asking to count the number of records in this dataset. They provided a chunk from Titanic.xlsx, rows 601-650, which is part of the total 891 rows.
+
+First, I need to check how many entries are there in the given data snippet. Looking at the table headers, each row starts with a number like # followed by PassengerId and other columns. The first entry is numbered 601, then 602 up to 650. Wait, but the user mentioned that this is chunk 13/18 of the data from Titanic.xlsx, which has 891 total rows.
+
+But in the provided table, there are entries from #601 to #650. Let me count how many numbers that is. From 601 to 650 inclusive: subtracting gives 650 - 601 = 49, plus one equals 50 rows.
+
+But the user's question refers to "this dataset" which might be referring to all data from Titanic.xlsx (total of 891), but in this case, they provided a chunk.</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_0_assistant" value="1" id="star_0_assistant_1"><label for="star_0_assistant_1">⭐</label><input type="radio" name="rating_0_assistant" value="2" id="star_0_assistant_2"><label for="star_0_assistant_2">⭐</label><input type="radio" name="rating_0_assistant" value="3" id="star_0_assistant_3"><label for="star_0_assistant_3">⭐</label><input type="radio" name="rating_0_assistant" value="4" id="star_0_assistant_4"><label for="star_0_assistant_4">⭐</label><input type="radio" name="rating_0_assistant" value="5" id="star_0_assistant_5"><label for="star_0_assistant_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-column" style="border-left: 4px solid #8B5CF6;">
+                <div class="mode-header" style="background: #8B5CF620;">
+                    <h3 style="color: #8B5CF6;">Deep Search</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 19831ms</span>
+                        <span class="stat confidence low">🎯 0.30 (low)</span>
+                        <span class="stat">📄 3 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-success">✓ Validation</span> <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-safe">✅ No Hallucination</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text"><think>
+Okay, let's see. The user is asking to count the number of records in this dataset.
+
+Looking at the data provided, the rows listed are from 601 to 650. But wait, the note says that this is chunk 13 out of 18, and the total rows in Titanic.xlsx are 891. However, the user's question specifically refers to "this dataset," which seems to be the current data provided here.
+
+In the given table, there are entries from PassengerId 601 up to 650. Let me count those. Starting at 601: that's one row, then each subsequent number increments by one until 650. So how many numbers is that? From 601 to 650 inclusive.
+
+Calculating the total rows here would be 650 - 601 + 1 = 50 records. But wait, looking at the data provided in the table, there are entries for each of these PassengerIds: 601 through 650 as listed.</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_0_deep" value="1" id="star_0_deep_1"><label for="star_0_deep_1">⭐</label><input type="radio" name="rating_0_deep" value="2" id="star_0_deep_2"><label for="star_0_deep_2">⭐</label><input type="radio" name="rating_0_deep" value="3" id="star_0_deep_3"><label for="star_0_deep_3">⭐</label><input type="radio" name="rating_0_deep" value="4" id="star_0_deep_4"><label for="star_0_deep_4">⭐</label><input type="radio" name="rating_0_deep" value="5" id="star_0_deep_5"><label for="star_0_deep_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-column" style="border-left: 4px solid #10B981;">
+                <div class="mode-header" style="background: #10B98120;">
+                    <h3 style="color: #10B981;">Both</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 19537ms</span>
+                        <span class="stat confidence low">🎯 0.30 (low)</span>
+                        <span class="stat">📄 3 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-info">🔍 Clarification</span> <span class="badge badge-success">✓ Validation</span> <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-safe">✅ No Hallucination</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text"><think>
+Okay, let's see. The user is asking to count the number of records in this dataset. They provided a chunk from Titanic.xlsx, specifically rows 601-650 (chunk 13/18). But wait, they mentioned that there are 891 total rows.
+
+Looking at the data given here: the table starts with row numbers 601 to 650. Let me check how many entries that is. From 601 to 650 inclusive, that's 50 rows (since 650 - 601 + 1 = 50). But wait, the user also mentioned "DATA ROWS 601-650 (of 891 total)" so this chunk is part of the full dataset. The question is about counting all records in the entire dataset.
+
+But since they provided a subset here, maybe I need to check if there's any inconsistency or missing data? Wait no, the user says "count records are in this dataset?" and then refers to the total number of entries/rows in the dataset.</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_0_both" value="1" id="star_0_both_1"><label for="star_0_both_1">⭐</label><input type="radio" name="rating_0_both" value="2" id="star_0_both_2"><label for="star_0_both_2">⭐</label><input type="radio" name="rating_0_both" value="3" id="star_0_both_3"><label for="star_0_both_3">⭐</label><input type="radio" name="rating_0_both" value="4" id="star_0_both_4"><label for="star_0_both_4">⭐</label><input type="radio" name="rating_0_both" value="5" id="star_0_both_5"><label for="star_0_both_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+            
+            <div class="validation-form">
+                <h4>Overall Assessment:</h4>
+                <textarea name="notes_0" placeholder="Compare the modes:&#10;&#10;Examples:&#10;- Basic mode was fast but low confidence&#10;- Assistant mode caught the ambiguity and asked for clarification&#10;- Deep Search provided the most thorough validation&#10;- Both mode combined the best features"></textarea>
+                
+                <div class="best-mode-select">
+                    <label><strong>Which mode gave the best answer?</strong></label>
+                    <select name="best_mode_0">
+                        <option value="">Select...</option>
+                        <option value="basic">Basic</option>
+                        <option value="assistant">Assistant</option>
+                        <option value="deep">Deep Search</option>
+                        <option value="both">Both</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <style>
+        .mode-comparison .modes-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .mode-column {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 300px;
+        }
+        
+        .mode-header {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        
+        .mode-header h3 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+        }
+        
+        .mode-stats {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            font-size: 13px;
+            padding: 4px 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+        
+        .stat.confidence.high { background: #10b98180; }
+        .stat.confidence.medium { background: #f59e0b80; }
+        .stat.confidence.low { background: #ef444480; }
+        
+        .mode-features {
+            margin-bottom: 15px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+        
+        .badge-info { background: #3b82f680; }
+        .badge-success { background: #10b98180; }
+        .badge-warning { background: #f59e0b80; }
+        .badge-danger { background: #ef444480; }
+        .badge-safe { background: #10b98180; }
+        
+        .mode-answer {
+            margin-bottom: 15px;
+        }
+        
+        .answer-text {
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 8px;
+            max-height: 150px;
+            overflow-y: auto;
+            line-height: 1.5;
+        }
+        
+        .rating-section {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+        }
+        
+        .star-rating {
+            display: flex;
+            gap: 5px;
+            margin-top: 8px;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+        
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+        
+        .star-rating label {
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0.3;
+            transition: opacity 0.2s;
+        }
+        
+        .star-rating input[type="radio"]:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            opacity: 1;
+        }
+        
+        .query-info {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .query-info .question {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .query-info .expected {
+            font-size: 14px;
+            color: #10b981;
+        }
+        
+        .best-mode-select {
+            margin-top: 15px;
+        }
+        
+        .best-mode-select select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            background: #1e293b;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+        </style>
+        
+        <div class="validation-item mode-comparison" data-item-id="1" data-item-type="mode_comparison">
+            <div class="item-header">
+                <span class="item-number">Item #2</span>
+                <span class="item-type">Mode Comparison - analytical</span>
+            </div>
+            
+            <div class="query-info">
+                <div class="question">❓ What are the key characteristics of this dataset?</div>
+                <div class="expected">✅ Expected: Summary of columns, data types, patterns</div>
+            </div>
+            
+            <div class="modes-container">
+                
+            <div class="mode-column" style="border-left: 4px solid #6B7280;">
+                <div class="mode-header" style="background: #6B728020;">
+                    <h3 style="color: #6B7280;">Basic</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 24466ms</span>
+                        <span class="stat confidence low">🎯 0.30 (low)</span>
+                        <span class="stat">📄 1 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-safe">✅ No Hallucination</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text"><think>
+Okay, the user is asking for the key characteristics of this dataset. Let me go through all the provided summaries to make sure I cover everything.
+
+First, looking at each summary: they mention demographic and financial info about individuals. The main columns are age, salary, score, email address, category labels, join dates, etc. So demographics include id, name, age; finances have salary; evaluation scores are in there too. 
+
+The key metrics from the data points:
+- Age has a maximum of 79 years.
+- Salary categories: D is top with $2M+, then C and B follow with lower million-dollar ranges. There's also mention of some entries like $149,999 which might be in another category or maybe an outlier?
+Wait, the third summary mentions salary amount up to $150k but others are higher? Need to check if that's consistent across all data sources.
+
+Score is mentioned as ranging from A (lowest score around 2K) to E with a high of 98.89. But in another part it says scores range from ~$100k, which might be conflicting or maybe different scales? Wait no—probably the first summary said "score: category A has lowest score (~$100k)" but then later one mentions values ranging from $99.94 to 100 for each row. That seems inconsistent.
+
+Wait that's confusing. In some</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_1_basic" value="1" id="star_1_basic_1"><label for="star_1_basic_1">⭐</label><input type="radio" name="rating_1_basic" value="2" id="star_1_basic_2"><label for="star_1_basic_2">⭐</label><input type="radio" name="rating_1_basic" value="3" id="star_1_basic_3"><label for="star_1_basic_3">⭐</label><input type="radio" name="rating_1_basic" value="4" id="star_1_basic_4"><label for="star_1_basic_4">⭐</label><input type="radio" name="rating_1_basic" value="5" id="star_1_basic_5"><label for="star_1_basic_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-column" style="border-left: 4px solid #3B82F6;">
+                <div class="mode-header" style="background: #3B82F620;">
+                    <h3 style="color: #3B82F6;">Assistant</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 20880ms</span>
+                        <span class="stat confidence low">🎯 0.30 (low)</span>
+                        <span class="stat">📄 1 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-info">🔍 Clarification</span> <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-safe">✅ No Hallucination</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text"><think>
+Okay, the user is asking for the key characteristics of this dataset. Let me go through all the provided summaries to make sure I cover everything.
+
+First, looking at each summary:
+
+The first one mentions demographic and financial info with age, salary, score, email, join dates, active status. Key columns are Age (max 79), Salary categories D ($2M+), C, B; Score ranges from A (lowest) to E (highest: 98.89). Potential use cases involve employee analysis.
+
+Second summary has similar points but mentions salary top categories as D and C with $1-3 million. Score for category A is around $100k. Use case again about demographic trends and financial performance.
+
+Third one lists demographics like id, name, age; financial details: salary; evaluation scores: score. Suggests it's related to employee evaluations in a company setting.
+
+Fourth summary notes that Salary has high values in top 5 rows ($149999), Score ranges from $99.94 to $100 per row. Potential use case for HR trends and patterns among workforce.
+
+Wait, there are inconsistencies here. For example, the first mention of score is up to E with value 98.89, but in another summary it's mentioned that category A has around $100k. Also, one says Score values range from $99.94 to $10</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_1_assistant" value="1" id="star_1_assistant_1"><label for="star_1_assistant_1">⭐</label><input type="radio" name="rating_1_assistant" value="2" id="star_1_assistant_2"><label for="star_1_assistant_2">⭐</label><input type="radio" name="rating_1_assistant" value="3" id="star_1_assistant_3"><label for="star_1_assistant_3">⭐</label><input type="radio" name="rating_1_assistant" value="4" id="star_1_assistant_4"><label for="star_1_assistant_4">⭐</label><input type="radio" name="rating_1_assistant" value="5" id="star_1_assistant_5"><label for="star_1_assistant_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-column" style="border-left: 4px solid #8B5CF6;">
+                <div class="mode-header" style="background: #8B5CF620;">
+                    <h3 style="color: #8B5CF6;">Deep Search</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 20974ms</span>
+                        <span class="stat confidence low">🎯 0.30 (low)</span>
+                        <span class="stat">📄 1 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-success">✓ Validation</span> <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-safe">✅ No Hallucination</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text"><think>
+Okay, the user is asking for the key characteristics of this dataset. Let me look through all the provided summaries to make sure I cover everything.
+
+First, from the first summary: The data includes demographic and financial info like age, salary, score, email, join date, active status. Age has a max of 79 years. Salary categories are D ($2M+), C, B. Score ranges from A (low) to E (high). There's also mention of category labels.
+
+Second summary: Similar points but more specific about the salary top categories being D and C with salaries in millions. The score for Category A is around $100k. Also mentions that it might be related to employee performance evaluations.
+
+Third summary adds demographic info like id, name, age; financial details as salary; evaluation scores as 'score'. It's linked to company setting, possibly HR analysis.
+
+Fourth summary: Salary has a high value in top 5 rows of $149k. Score values are between ~$99.94 and $100 per row. Potential use cases for organizations looking at workforce trends or patterns.
+
+Wait, there seems to be some inconsistency here. In the first summaries, score is described as ranging from A (lowest) to E (highest), but in another part it says Category A has a low score around $100k and scores go up to 98.89 for category E? Wait,</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_1_deep" value="1" id="star_1_deep_1"><label for="star_1_deep_1">⭐</label><input type="radio" name="rating_1_deep" value="2" id="star_1_deep_2"><label for="star_1_deep_2">⭐</label><input type="radio" name="rating_1_deep" value="3" id="star_1_deep_3"><label for="star_1_deep_3">⭐</label><input type="radio" name="rating_1_deep" value="4" id="star_1_deep_4"><label for="star_1_deep_4">⭐</label><input type="radio" name="rating_1_deep" value="5" id="star_1_deep_5"><label for="star_1_deep_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-column" style="border-left: 4px solid #10B981;">
+                <div class="mode-header" style="background: #10B98120;">
+                    <h3 style="color: #10B981;">Both</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 21830ms</span>
+                        <span class="stat confidence low">🎯 0.30 (low)</span>
+                        <span class="stat">📄 1 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-info">🔍 Clarification</span> <span class="badge badge-success">✓ Validation</span> <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-safe">✅ No Hallucination</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text"><think>
+Okay, the user is asking for the key characteristics of this dataset. Let me start by going through all the provided summaries to gather consistent information.
+
+First, I notice that each summary mentions demographic and financial info about individuals. The main columns are age, salary, score, email address, category labels, join dates, etc. So demographics include id, name, age; finances have salary; evaluation scores are part of it too. 
+
+Looking at the key metrics: Age has a maximum value of 79 years old across different summaries. Salary is mentioned with categories like D ($2M+), C (1-3 million), and B lower but still in millions. The score ranges from A to E, where category A has low scores around $100k? Wait, one summary says Score: Category A has the lowest score (around $100k). But another mentions that for some rows, scores are between 99.94 and 100. Maybe there's a discrepancy here—maybe "score" is in different units or scales?
+
+Wait, let me check again. The first summary says Score: Category A has the lowest score (around $1K+), but another mentions that for some rows scores are between 99.94 and 100. Hmm, maybe there's inconsistency here? Or perhaps "score" is a different metric not directly in dollars?</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_1_both" value="1" id="star_1_both_1"><label for="star_1_both_1">⭐</label><input type="radio" name="rating_1_both" value="2" id="star_1_both_2"><label for="star_1_both_2">⭐</label><input type="radio" name="rating_1_both" value="3" id="star_1_both_3"><label for="star_1_both_3">⭐</label><input type="radio" name="rating_1_both" value="4" id="star_1_both_4"><label for="star_1_both_4">⭐</label><input type="radio" name="rating_1_both" value="5" id="star_1_both_5"><label for="star_1_both_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+            
+            <div class="validation-form">
+                <h4>Overall Assessment:</h4>
+                <textarea name="notes_1" placeholder="Compare the modes:&#10;&#10;Examples:&#10;- Basic mode was fast but low confidence&#10;- Assistant mode caught the ambiguity and asked for clarification&#10;- Deep Search provided the most thorough validation&#10;- Both mode combined the best features"></textarea>
+                
+                <div class="best-mode-select">
+                    <label><strong>Which mode gave the best answer?</strong></label>
+                    <select name="best_mode_1">
+                        <option value="">Select...</option>
+                        <option value="basic">Basic</option>
+                        <option value="assistant">Assistant</option>
+                        <option value="deep">Deep Search</option>
+                        <option value="both">Both</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <style>
+        .mode-comparison .modes-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .mode-column {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 300px;
+        }
+        
+        .mode-header {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        
+        .mode-header h3 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+        }
+        
+        .mode-stats {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            font-size: 13px;
+            padding: 4px 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+        
+        .stat.confidence.high { background: #10b98180; }
+        .stat.confidence.medium { background: #f59e0b80; }
+        .stat.confidence.low { background: #ef444480; }
+        
+        .mode-features {
+            margin-bottom: 15px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+        
+        .badge-info { background: #3b82f680; }
+        .badge-success { background: #10b98180; }
+        .badge-warning { background: #f59e0b80; }
+        .badge-danger { background: #ef444480; }
+        .badge-safe { background: #10b98180; }
+        
+        .mode-answer {
+            margin-bottom: 15px;
+        }
+        
+        .answer-text {
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 8px;
+            max-height: 150px;
+            overflow-y: auto;
+            line-height: 1.5;
+        }
+        
+        .rating-section {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+        }
+        
+        .star-rating {
+            display: flex;
+            gap: 5px;
+            margin-top: 8px;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+        
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+        
+        .star-rating label {
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0.3;
+            transition: opacity 0.2s;
+        }
+        
+        .star-rating input[type="radio"]:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            opacity: 1;
+        }
+        
+        .query-info {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .query-info .question {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .query-info .expected {
+            font-size: 14px;
+            color: #10b981;
+        }
+        
+        .best-mode-select {
+            margin-top: 15px;
+        }
+        
+        .best-mode-select select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            background: #1e293b;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+        </style>
+        
+        <div class="validation-item mode-comparison" data-item-id="2" data-item-type="mode_comparison">
+            <div class="item-header">
+                <span class="item-number">Item #3</span>
+                <span class="item-type">Mode Comparison - ambiguous</span>
+            </div>
+            
+            <div class="query-info">
+                <div class="question">❓ analyze this data</div>
+                <div class="expected">✅ Expected: Should request clarification in Assistant/Both modes</div>
+            </div>
+            
+            <div class="modes-container">
+                
+            <div class="mode-column" style="border-left: 4px solid #6B7280;">
+                <div class="mode-header" style="background: #6B728020;">
+                    <h3 style="color: #6B7280;">Basic</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 26184ms</span>
+                        <span class="stat confidence low">🎯 0.30 (low)</span>
+                        <span class="stat">📄 1 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-safe">✅ No Hallucination</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text"><think>
+Okay, the user provided a dataset with 100 rows and nine columns. They want an analysis of this data.
+
+First, I need to look at each column's description. The key metrics are age, salary, category (A-D), score, email format, active status, join date.
+
+From the summary given:
+- Age has a maximum of 79.
+- Salary categories: D ($2M+) and C ($1-3 million) have the highest sums.
+- Score for Category A is around $100k. Wait, that might be a typo since scores are usually numerical. Maybe it's "around 100K" as in score value?
+  
+I should check if there's any inconsistency here. The user mentioned salary categories and score category (A-D). So maybe the 'score' column is an evaluation metric, not related to the email or age.
+
+The potential use case mentions analyzing demographic trends and financial performance across different groups. That suggests looking at correlations between variables like age, salary, category, and scores.
+
+Possible patterns: higher salaries might correlate with lower score categories? Or perhaps Category A has lower scores but maybe other factors?
+
+I need to structure the analysis into sections:
+1. Demographic Overview
+2. Salary Distribution by Category
+3. Score Trends Across Categories
+4. Email Format Insights (if any)
+5.</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_2_basic" value="1" id="star_2_basic_1"><label for="star_2_basic_1">⭐</label><input type="radio" name="rating_2_basic" value="2" id="star_2_basic_2"><label for="star_2_basic_2">⭐</label><input type="radio" name="rating_2_basic" value="3" id="star_2_basic_3"><label for="star_2_basic_3">⭐</label><input type="radio" name="rating_2_basic" value="4" id="star_2_basic_4"><label for="star_2_basic_4">⭐</label><input type="radio" name="rating_2_basic" value="5" id="star_2_basic_5"><label for="star_2_basic_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-column" style="border-left: 4px solid #3B82F6;">
+                <div class="mode-header" style="background: #3B82F620;">
+                    <h3 style="color: #3B82F6;">Assistant</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 21080ms</span>
+                        <span class="stat confidence low">🎯 0.30 (low)</span>
+                        <span class="stat">📄 1 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-info">🔍 Clarification</span> <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-safe">✅ No Hallucination</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text"><think>
+Okay, the user provided a dataset with various columns and some summary statistics. They want an analysis of this data.
+
+First, I need to parse through what's given. The key points are age ranges up to 79 years old, salary categories D ($2M+) and C ($1-3 million) being top, category A has the lowest score around $100k. Also mentioned is that scores range up to ~$98K.
+
+Wait, but in the data summary provided by user earlier (before this question), they mention "score: Category A has the lowest score (around $100k)" – so maybe there's a discrepancy here? Because if category A has low score (~$100k) and others have higher scores up to ~98K, that doesnity make sense. Wait, perhaps it was meant as "score: Category A has the lowest value (around 100), while other categories go up to around 98?" Or maybe there's a typo in units.
+
+But regardless, I need to present an analysis based on what is given here and also check for inconsistencies or missing info. The user mentioned that if data seems incomplete or inconsistent, point it out. So perhaps the score values are numerical (like scores) rather than monetary? Because "around $100k" doesn't fit with a maximum of ~98K.
+
+Wait, maybe there's confusion in units here. If</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_2_assistant" value="1" id="star_2_assistant_1"><label for="star_2_assistant_1">⭐</label><input type="radio" name="rating_2_assistant" value="2" id="star_2_assistant_2"><label for="star_2_assistant_2">⭐</label><input type="radio" name="rating_2_assistant" value="3" id="star_2_assistant_3"><label for="star_2_assistant_3">⭐</label><input type="radio" name="rating_2_assistant" value="4" id="star_2_assistant_4"><label for="star_2_assistant_4">⭐</label><input type="radio" name="rating_2_assistant" value="5" id="star_2_assistant_5"><label for="star_2_assistant_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-column" style="border-left: 4px solid #8B5CF6;">
+                <div class="mode-header" style="background: #8B5CF620;">
+                    <h3 style="color: #8B5CF6;">Deep Search</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 21350ms</span>
+                        <span class="stat confidence low">🎯 0.30 (low)</span>
+                        <span class="stat">📄 1 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-success">✓ Validation</span> <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-safe">✅ No Hallucination</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text"><think>
+Okay, the user provided a dataset summary and wants an analysis. Let me start by breaking down what's given.
+
+The data has 100 rows with columns like id, name, email, age, salary, category, score, active status, join date. The key metrics are age (highest 79), salaries in D ($2M+) and C ($1-3 million) categories, and scores for A being around $100k.
+
+First thing I notice is that the dataset includes demographic info like age and salary, along with categorical data suchity of category. The user might be interested in correlations between these variables or trends across different groups.
+
+I should check if there's any missing data or inconsistencies mentioned. From the summary, it seems okay but maybe note that email addresses have a pattern (like @example.com), which could indicate they're test emails or placeholders.
+
+Looking at salary categories: D is top with $2M+, then C ($1-3 million). The score category A has lower scores than others. Wait, the user said "score" might be an evaluation metric, so maybe higher scores are better? But in the data summary, it says Category A has the lowest score (around 100k), which is a bit confusing if that's supposed to be high.
+
+Wait, actually the original problem mentioned Score: category A has the lowest score.</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_2_deep" value="1" id="star_2_deep_1"><label for="star_2_deep_1">⭐</label><input type="radio" name="rating_2_deep" value="2" id="star_2_deep_2"><label for="star_2_deep_2">⭐</label><input type="radio" name="rating_2_deep" value="3" id="star_2_deep_3"><label for="star_2_deep_3">⭐</label><input type="radio" name="rating_2_deep" value="4" id="star_2_deep_4"><label for="star_2_deep_4">⭐</label><input type="radio" name="rating_2_deep" value="5" id="star_2_deep_5"><label for="star_2_deep_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-column" style="border-left: 4px solid #10B981;">
+                <div class="mode-header" style="background: #10B98120;">
+                    <h3 style="color: #10B981;">Both</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 21259ms</span>
+                        <span class="stat confidence low">🎯 0.30 (low)</span>
+                        <span class="stat">📄 1 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-info">🔍 Clarification</span> <span class="badge badge-success">✓ Validation</span> <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-safe">✅ No Hallucination</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text"><think>
+Okay, let's see. The user provided a dataset with information about individuals including age, salary, score, email, category labels, etc. They want an analysis of this data.
+
+First, I need to recall the key points from the given summary: highest age is 79, top salaries are in categories D and C, category A has lower scores. The user might be interested in understanding trends or patterns here.
+
+I should start by summarizing each column's characteristics. For example, age distribution, salary ranges across categories, score variations per category. Also note any inconsistencies like the email format being "name@domain.com" which is standard but maybe not all entries are valid?
+
+Then check if there are outliers in scores or salaries. The highest score mentioned was around 98k? Wait, no—the original data said Category A has the lowest score (around $100k). That seems a bit confusing because usually lower scores would be worse, so perhaps it's a typo and they meant higher scores for better performance?
+
+Also, need to make sure that when presenting stats like average salary per category, I use correct calculations. The user might want insights into how categories relate to salaries or scores.
+
+Possible trends: Higher salary categories (D) have lower scores? Or maybe the score is inversely related to salary?</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_2_both" value="1" id="star_2_both_1"><label for="star_2_both_1">⭐</label><input type="radio" name="rating_2_both" value="2" id="star_2_both_2"><label for="star_2_both_2">⭐</label><input type="radio" name="rating_2_both" value="3" id="star_2_both_3"><label for="star_2_both_3">⭐</label><input type="radio" name="rating_2_both" value="4" id="star_2_both_4"><label for="star_2_both_4">⭐</label><input type="radio" name="rating_2_both" value="5" id="star_2_both_5"><label for="star_2_both_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+            
+            <div class="validation-form">
+                <h4>Overall Assessment:</h4>
+                <textarea name="notes_2" placeholder="Compare the modes:&#10;&#10;Examples:&#10;- Basic mode was fast but low confidence&#10;- Assistant mode caught the ambiguity and asked for clarification&#10;- Deep Search provided the most thorough validation&#10;- Both mode combined the best features"></textarea>
+                
+                <div class="best-mode-select">
+                    <label><strong>Which mode gave the best answer?</strong></label>
+                    <select name="best_mode_2">
+                        <option value="">Select...</option>
+                        <option value="basic">Basic</option>
+                        <option value="assistant">Assistant</option>
+                        <option value="deep">Deep Search</option>
+                        <option value="both">Both</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <style>
+        .mode-comparison .modes-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .mode-column {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 300px;
+        }
+        
+        .mode-header {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        
+        .mode-header h3 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+        }
+        
+        .mode-stats {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            font-size: 13px;
+            padding: 4px 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+        
+        .stat.confidence.high { background: #10b98180; }
+        .stat.confidence.medium { background: #f59e0b80; }
+        .stat.confidence.low { background: #ef444480; }
+        
+        .mode-features {
+            margin-bottom: 15px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+        
+        .badge-info { background: #3b82f680; }
+        .badge-success { background: #10b98180; }
+        .badge-warning { background: #f59e0b80; }
+        .badge-danger { background: #ef444480; }
+        .badge-safe { background: #10b98180; }
+        
+        .mode-answer {
+            margin-bottom: 15px;
+        }
+        
+        .answer-text {
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 8px;
+            max-height: 150px;
+            overflow-y: auto;
+            line-height: 1.5;
+        }
+        
+        .rating-section {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+        }
+        
+        .star-rating {
+            display: flex;
+            gap: 5px;
+            margin-top: 8px;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+        
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+        
+        .star-rating label {
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0.3;
+            transition: opacity 0.2s;
+        }
+        
+        .star-rating input[type="radio"]:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            opacity: 1;
+        }
+        
+        .query-info {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .query-info .question {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .query-info .expected {
+            font-size: 14px;
+            color: #10b981;
+        }
+        
+        .best-mode-select {
+            margin-top: 15px;
+        }
+        
+        .best-mode-select select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            background: #1e293b;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+        </style>
+        
+        <div class="validation-item mode-comparison" data-item-id="3" data-item-type="mode_comparison">
+            <div class="item-header">
+                <span class="item-number">Item #4</span>
+                <span class="item-type">Mode Comparison - compound</span>
+            </div>
+            
+            <div class="query-info">
+                <div class="question">❓ What is the average value and maximum value?</div>
+                <div class="expected">✅ Expected: Two separate calculations</div>
+            </div>
+            
+            <div class="modes-container">
+                
+            <div class="mode-column" style="border-left: 4px solid #6B7280;">
+                <div class="mode-header" style="background: #6B728020;">
+                    <h3 style="color: #6B7280;">Basic</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 206ms</span>
+                        <span class="stat confidence low">🎯 0.30 (low)</span>
+                        <span class="stat">📄 0 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-safe">✅ No Hallucination</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text">I don't know based on the current documents.</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_3_basic" value="1" id="star_3_basic_1"><label for="star_3_basic_1">⭐</label><input type="radio" name="rating_3_basic" value="2" id="star_3_basic_2"><label for="star_3_basic_2">⭐</label><input type="radio" name="rating_3_basic" value="3" id="star_3_basic_3"><label for="star_3_basic_3">⭐</label><input type="radio" name="rating_3_basic" value="4" id="star_3_basic_4"><label for="star_3_basic_4">⭐</label><input type="radio" name="rating_3_basic" value="5" id="star_3_basic_5"><label for="star_3_basic_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-column" style="border-left: 4px solid #3B82F6;">
+                <div class="mode-header" style="background: #3B82F620;">
+                    <h3 style="color: #3B82F6;">Assistant</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 209ms</span>
+                        <span class="stat confidence low">🎯 0.30 (low)</span>
+                        <span class="stat">📄 0 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-info">🔍 Clarification</span> <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-safe">✅ No Hallucination</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text">I don't know based on the current documents.</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_3_assistant" value="1" id="star_3_assistant_1"><label for="star_3_assistant_1">⭐</label><input type="radio" name="rating_3_assistant" value="2" id="star_3_assistant_2"><label for="star_3_assistant_2">⭐</label><input type="radio" name="rating_3_assistant" value="3" id="star_3_assistant_3"><label for="star_3_assistant_3">⭐</label><input type="radio" name="rating_3_assistant" value="4" id="star_3_assistant_4"><label for="star_3_assistant_4">⭐</label><input type="radio" name="rating_3_assistant" value="5" id="star_3_assistant_5"><label for="star_3_assistant_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-column" style="border-left: 4px solid #8B5CF6;">
+                <div class="mode-header" style="background: #8B5CF620;">
+                    <h3 style="color: #8B5CF6;">Deep Search</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 206ms</span>
+                        <span class="stat confidence low">🎯 0.30 (low)</span>
+                        <span class="stat">📄 0 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-success">✓ Validation</span> <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-safe">✅ No Hallucination</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text">I don't know based on the current documents.</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_3_deep" value="1" id="star_3_deep_1"><label for="star_3_deep_1">⭐</label><input type="radio" name="rating_3_deep" value="2" id="star_3_deep_2"><label for="star_3_deep_2">⭐</label><input type="radio" name="rating_3_deep" value="3" id="star_3_deep_3"><label for="star_3_deep_3">⭐</label><input type="radio" name="rating_3_deep" value="4" id="star_3_deep_4"><label for="star_3_deep_4">⭐</label><input type="radio" name="rating_3_deep" value="5" id="star_3_deep_5"><label for="star_3_deep_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-column" style="border-left: 4px solid #10B981;">
+                <div class="mode-header" style="background: #10B98120;">
+                    <h3 style="color: #10B981;">Both</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 199ms</span>
+                        <span class="stat confidence low">🎯 0.30 (low)</span>
+                        <span class="stat">📄 0 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-info">🔍 Clarification</span> <span class="badge badge-success">✓ Validation</span> <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-safe">✅ No Hallucination</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text">I don't know based on the current documents.</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_3_both" value="1" id="star_3_both_1"><label for="star_3_both_1">⭐</label><input type="radio" name="rating_3_both" value="2" id="star_3_both_2"><label for="star_3_both_2">⭐</label><input type="radio" name="rating_3_both" value="3" id="star_3_both_3"><label for="star_3_both_3">⭐</label><input type="radio" name="rating_3_both" value="4" id="star_3_both_4"><label for="star_3_both_4">⭐</label><input type="radio" name="rating_3_both" value="5" id="star_3_both_5"><label for="star_3_both_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+            
+            <div class="validation-form">
+                <h4>Overall Assessment:</h4>
+                <textarea name="notes_3" placeholder="Compare the modes:&#10;&#10;Examples:&#10;- Basic mode was fast but low confidence&#10;- Assistant mode caught the ambiguity and asked for clarification&#10;- Deep Search provided the most thorough validation&#10;- Both mode combined the best features"></textarea>
+                
+                <div class="best-mode-select">
+                    <label><strong>Which mode gave the best answer?</strong></label>
+                    <select name="best_mode_3">
+                        <option value="">Select...</option>
+                        <option value="basic">Basic</option>
+                        <option value="assistant">Assistant</option>
+                        <option value="deep">Deep Search</option>
+                        <option value="both">Both</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <style>
+        .mode-comparison .modes-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .mode-column {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 300px;
+        }
+        
+        .mode-header {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        
+        .mode-header h3 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+        }
+        
+        .mode-stats {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            font-size: 13px;
+            padding: 4px 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+        
+        .stat.confidence.high { background: #10b98180; }
+        .stat.confidence.medium { background: #f59e0b80; }
+        .stat.confidence.low { background: #ef444480; }
+        
+        .mode-features {
+            margin-bottom: 15px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+        
+        .badge-info { background: #3b82f680; }
+        .badge-success { background: #10b98180; }
+        .badge-warning { background: #f59e0b80; }
+        .badge-danger { background: #ef444480; }
+        .badge-safe { background: #10b98180; }
+        
+        .mode-answer {
+            margin-bottom: 15px;
+        }
+        
+        .answer-text {
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 8px;
+            max-height: 150px;
+            overflow-y: auto;
+            line-height: 1.5;
+        }
+        
+        .rating-section {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+        }
+        
+        .star-rating {
+            display: flex;
+            gap: 5px;
+            margin-top: 8px;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+        
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+        
+        .star-rating label {
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0.3;
+            transition: opacity 0.2s;
+        }
+        
+        .star-rating input[type="radio"]:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            opacity: 1;
+        }
+        
+        .query-info {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .query-info .question {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .query-info .expected {
+            font-size: 14px;
+            color: #10b981;
+        }
+        
+        .best-mode-select {
+            margin-top: 15px;
+        }
+        
+        .best-mode-select select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            background: #1e293b;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+        </style>
+        
+        <div class="validation-item mode-comparison" data-item-id="4" data-item-type="mode_comparison">
+            <div class="item-header">
+                <span class="item-number">Item #5</span>
+                <span class="item-type">Mode Comparison - hallucination_risk</span>
+            </div>
+            
+            <div class="query-info">
+                <div class="question">❓ What is the date range of this data?</div>
+                <div class="expected">✅ Expected: Should say 'I don't know' if no dates present</div>
+            </div>
+            
+            <div class="modes-container">
+                
+            <div class="mode-column" style="border-left: 4px solid #6B7280;">
+                <div class="mode-header" style="background: #6B728020;">
+                    <h3 style="color: #6B7280;">Basic</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 334868ms</span>
+                        <span class="stat confidence low">🎯 0.00 (low)</span>
+                        <span class="stat">📄 3 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-danger">⚠️ Hallucination Detected</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text">I don't have enough information in the available data to answer this question accurately. Please ensure the relevant data sources are selected and properly indexed.</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_4_basic" value="1" id="star_4_basic_1"><label for="star_4_basic_1">⭐</label><input type="radio" name="rating_4_basic" value="2" id="star_4_basic_2"><label for="star_4_basic_2">⭐</label><input type="radio" name="rating_4_basic" value="3" id="star_4_basic_3"><label for="star_4_basic_3">⭐</label><input type="radio" name="rating_4_basic" value="4" id="star_4_basic_4"><label for="star_4_basic_4">⭐</label><input type="radio" name="rating_4_basic" value="5" id="star_4_basic_5"><label for="star_4_basic_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-column" style="border-left: 4px solid #3B82F6;">
+                <div class="mode-header" style="background: #3B82F620;">
+                    <h3 style="color: #3B82F6;">Assistant</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 39883ms</span>
+                        <span class="stat confidence low">🎯 0.00 (low)</span>
+                        <span class="stat">📄 3 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-info">🔍 Clarification</span> <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-danger">⚠️ Hallucination Detected</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text">I don't have enough information in the available data to answer this question accurately. Please ensure the relevant data sources are selected and properly indexed.</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_4_assistant" value="1" id="star_4_assistant_1"><label for="star_4_assistant_1">⭐</label><input type="radio" name="rating_4_assistant" value="2" id="star_4_assistant_2"><label for="star_4_assistant_2">⭐</label><input type="radio" name="rating_4_assistant" value="3" id="star_4_assistant_3"><label for="star_4_assistant_3">⭐</label><input type="radio" name="rating_4_assistant" value="4" id="star_4_assistant_4"><label for="star_4_assistant_4">⭐</label><input type="radio" name="rating_4_assistant" value="5" id="star_4_assistant_5"><label for="star_4_assistant_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-column" style="border-left: 4px solid #8B5CF6;">
+                <div class="mode-header" style="background: #8B5CF620;">
+                    <h3 style="color: #8B5CF6;">Deep Search</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 36151ms</span>
+                        <span class="stat confidence low">🎯 0.00 (low)</span>
+                        <span class="stat">📄 3 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-success">✓ Validation</span> <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-danger">⚠️ Hallucination Detected</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text">I don't have enough information in the available data to answer this question accurately. Please ensure the relevant data sources are selected and properly indexed.</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_4_deep" value="1" id="star_4_deep_1"><label for="star_4_deep_1">⭐</label><input type="radio" name="rating_4_deep" value="2" id="star_4_deep_2"><label for="star_4_deep_2">⭐</label><input type="radio" name="rating_4_deep" value="3" id="star_4_deep_3"><label for="star_4_deep_3">⭐</label><input type="radio" name="rating_4_deep" value="4" id="star_4_deep_4"><label for="star_4_deep_4">⭐</label><input type="radio" name="rating_4_deep" value="5" id="star_4_deep_5"><label for="star_4_deep_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-column" style="border-left: 4px solid #10B981;">
+                <div class="mode-header" style="background: #10B98120;">
+                    <h3 style="color: #10B981;">Both</h3>
+                    <div class="mode-stats">
+                        <span class="stat">⏱️ 40342ms</span>
+                        <span class="stat confidence low">🎯 0.00 (low)</span>
+                        <span class="stat">📄 3 sources</span>
+                    </div>
+                </div>
+                
+                <div class="mode-features">
+                    <span class="badge badge-info">🔍 Clarification</span> <span class="badge badge-success">✓ Validation</span> <span class="badge badge-warning">💡 Disambiguation</span> <span class="badge badge-danger">⚠️ Hallucination Detected</span>
+                </div>
+                
+                <div class="mode-answer">
+                    <strong>Answer:</strong>
+                    <div class="answer-text">I don't have enough information in the available data to answer this question accurately. Please ensure the relevant data sources are selected and properly indexed.</div>
+                </div>
+                
+                <div class="rating-section">
+                    <label>Rate this answer (1-5 ⭐):</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating_4_both" value="1" id="star_4_both_1"><label for="star_4_both_1">⭐</label><input type="radio" name="rating_4_both" value="2" id="star_4_both_2"><label for="star_4_both_2">⭐</label><input type="radio" name="rating_4_both" value="3" id="star_4_both_3"><label for="star_4_both_3">⭐</label><input type="radio" name="rating_4_both" value="4" id="star_4_both_4"><label for="star_4_both_4">⭐</label><input type="radio" name="rating_4_both" value="5" id="star_4_both_5"><label for="star_4_both_5">⭐</label>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+            
+            <div class="validation-form">
+                <h4>Overall Assessment:</h4>
+                <textarea name="notes_4" placeholder="Compare the modes:&#10;&#10;Examples:&#10;- Basic mode was fast but low confidence&#10;- Assistant mode caught the ambiguity and asked for clarification&#10;- Deep Search provided the most thorough validation&#10;- Both mode combined the best features"></textarea>
+                
+                <div class="best-mode-select">
+                    <label><strong>Which mode gave the best answer?</strong></label>
+                    <select name="best_mode_4">
+                        <option value="">Select...</option>
+                        <option value="basic">Basic</option>
+                        <option value="assistant">Assistant</option>
+                        <option value="deep">Deep Search</option>
+                        <option value="both">Both</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <style>
+        .mode-comparison .modes-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .mode-column {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 300px;
+        }
+        
+        .mode-header {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        
+        .mode-header h3 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+        }
+        
+        .mode-stats {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            font-size: 13px;
+            padding: 4px 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+        
+        .stat.confidence.high { background: #10b98180; }
+        .stat.confidence.medium { background: #f59e0b80; }
+        .stat.confidence.low { background: #ef444480; }
+        
+        .mode-features {
+            margin-bottom: 15px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+        
+        .badge-info { background: #3b82f680; }
+        .badge-success { background: #10b98180; }
+        .badge-warning { background: #f59e0b80; }
+        .badge-danger { background: #ef444480; }
+        .badge-safe { background: #10b98180; }
+        
+        .mode-answer {
+            margin-bottom: 15px;
+        }
+        
+        .answer-text {
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 8px;
+            max-height: 150px;
+            overflow-y: auto;
+            line-height: 1.5;
+        }
+        
+        .rating-section {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+        }
+        
+        .star-rating {
+            display: flex;
+            gap: 5px;
+            margin-top: 8px;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+        
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+        
+        .star-rating label {
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0.3;
+            transition: opacity 0.2s;
+        }
+        
+        .star-rating input[type="radio"]:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            opacity: 1;
+        }
+        
+        .query-info {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .query-info .question {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .query-info .expected {
+            font-size: 14px;
+            color: #10b981;
+        }
+        
+        .best-mode-select {
+            margin-top: 15px;
+        }
+        
+        .best-mode-select select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            background: #1e293b;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+        </style>
+        
+    </div>
+    
+    <div class="actions">
+        <div class="progress">
+            <span id="progress-text">0 / 5 validated</span>
+        </div>
+        <button class="btn btn-secondary" onclick="autoSave()">💾 Auto-Save</button>
+        <button class="btn btn-primary" onclick="exportResults()">📥 Export Results</button>
+    </div>
+    
+    <div class="save-notification" id="save-notification">
+        ✅ Progress auto-saved!
+    </div>
+    
+    <script>
+        const REPORT_ID = '20251230_075732';
+        
+        // Auto-save every 30 seconds
+        let autoSaveInterval = setInterval(autoSave, 30000);
+        
+        // Load previous responses if available
+        window.addEventListener('DOMContentLoaded', loadSavedResponses);
+        
+        // Save on any change
+        document.addEventListener('change', function(e) {
+            if (e.target.matches('input[type="radio"], textarea')) {
+                autoSave();
+                updateStats();
+            }
+        });
+        
+        function loadSavedResponses() {
+            const saved = localStorage.getItem('validation_responses_' + REPORT_ID);
+            if (saved) {
+                const responses = JSON.parse(saved);
+                for (const [itemId, data] of Object.entries(responses)) {
+                    const radio = document.querySelector(`input[name="validation_${itemId}"][value="${data.choice}"]`);
+                    if (radio) radio.checked = true;
+                    
+                    const notes = document.querySelector(`textarea[name="notes_${itemId}"]`);
+                    if (notes) notes.value = data.notes || '';
+                }
+                updateStats();
+                console.log('✓ Loaded saved responses');
+            }
+        }
+        
+        function autoSave() {
+            const responses = {};
+            const items = document.querySelectorAll('.validation-item');
+            
+            items.forEach(item => {
+                const itemId = item.dataset.itemId;
+                const radio = item.querySelector('input[type="radio"]:checked');
+                const notes = item.querySelector('textarea');
+                
+                if (radio || (notes && notes.value)) {
+                    responses[itemId] = {
+                        choice: radio ? radio.value : null,
+                        notes: notes ? notes.value : '',
+                        timestamp: new Date().toISOString()
+                    };
+                }
+            });
+            
+            localStorage.setItem('validation_responses_' + REPORT_ID, JSON.stringify(responses));
+            
+            // Show notification
+            const notification = document.getElementById('save-notification');
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 2000);
+        }
+        
+        function updateStats() {
+            const items = document.querySelectorAll('.validation-item');
+            let validated = 0;
+            
+            items.forEach(item => {
+                const radio = item.querySelector('input[type="radio"]:checked');
+                if (radio) {
+                    validated++;
+                    item.classList.add('validated');
+                } else {
+                    item.classList.remove('validated');
+                }
+            });
+            
+            document.getElementById('validated-count').textContent = validated;
+            document.getElementById('pending-count').textContent = items.length - validated;
+            document.getElementById('progress-text').textContent = `${validated} / ${items.length} validated`;
+        }
+        
+        function exportResults() {
+            const responses = {};
+            const items = document.querySelectorAll('.validation-item');
+            
+            items.forEach(item => {
+                const itemId = item.dataset.itemId;
+                const itemType = item.dataset.itemType;
+                const radio = item.querySelector('input[type="radio"]:checked');
+                const notes = item.querySelector('textarea');
+                
+                responses[itemId] = {
+                    item_id: parseInt(itemId),
+                    item_type: itemType,
+                    choice: radio ? radio.value : 'not_validated',
+                    notes: notes ? notes.value : '',
+                    timestamp: new Date().toISOString()
+                };
+            });
+            
+            const result = {
+                report_id: REPORT_ID,
+                generated_at: new Date().toISOString(),
+                total_items: items.length,
+                validated_items: Object.values(responses).filter(r => r.choice !== 'not_validated').length,
+                responses: responses
+            };
+            
+            // Download as JSON
+            const blob = new Blob([JSON.stringify(result, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'validation_results_' + REPORT_ID + '.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // Also save to localStorage as backup
+            localStorage.setItem('validation_results_' + REPORT_ID, JSON.stringify(result));
+            
+            alert('✅ Results exported successfully!\n\nFile: validation_results_' + REPORT_ID + '.json\nItems validated: ' + result.validated_items + ' / ' + result.total_items);
+        }
+        
+        // Update stats on load
+        updateStats();
+    </script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+
+EMAIL THREAD: Equipment Purchase Approvals
+===========================================
+
+From: Sarah Johnson <sarah.johnson@acmecorp.com>
+To: John Smith <john.smith@acmecorp.com>
+Date: August 10, 2023 2:15 PM
+Subject: Urgent: CNC Machine Purchase Approval
+
+John,
+
+MachineWorks is offering a 15% discount if we commit by end of week.
+The CNC machine we discussed is $95,000 (normally $112,000).
+
+This is within your discretionary authority (<$100K) and critical for 
+Q4 production ramp. Can you approve today so we don't miss the discount?
+
+Invoice will be coded to Equipment CapEx.
+
+Thanks,
+Sarah
+
+---
+
+From: John Smith <john.smith@acmecorp.com>
+To: Sarah Johnson <sarah.johnson@acmecorp.com>
+Date: August 10, 2023 4:42 PM
+Subject: RE: Urgent: CNC Machine Purchase Approval
+
+Approved. Great deal!
+
+However, I thought our policy required board approval for anything >$50K?
+Should we run this by the board first, or document this as emergency approval?
+
+John
+
+---
+
+From: Sarah Johnson <sarah.johnson@acmecorp.com>
+To: John Smith <john.smith@acmecorp.com>
+Date: August 10, 2023 5:03 PM
+Subject: RE: Urgent: CNC Machine Purchase Approval
+
+You're right about the policy, but your discretionary authority is up to $200K
+per our updated bylaws (approved last year). 
+
+I'll add a note to the board minutes for transparency. We'll disclose it at
+the September meeting.
+
+Processing the order now!
+Sarah
+
+---
+
+From: Robert Wilson <robert.wilson@acmecorp.com>  
+To: John Smith <john.smith@acmecorp.com>
+Cc: Sarah Johnson <sarah.johnson@acmecorp.com>
+Date: September 18, 2023 9:30 AM
+Subject: Board Meeting Follow-up: Equipment Purchases
+
+John & Sarah,
+
+At last week's board meeting, you mentioned $180,000 in equipment purchases 
+under CEO discretionary authority. Can you provide details?
+
+I couldn't find these in the Q3 cash flow statement that was presented. 
+Where are they reflected?
+
+Also, if your discretionary authority is $200K, shouldn't purchases approaching
+that limit be disclosed proactively to the board rather than after the fact?
+
+Thanks,
+Robert
+
+---
+
+From: Sarah Johnson <sarah.johnson@acmecorp.com>
+To: Robert Wilson <robert.wilson@acmecorp.com>
+Cc: John Smith <john.smith@acmecorp.com>
+Date: September 18, 2023 2:15 PM
+Subject: RE: Board Meeting Follow-up: Equipment Purchases
+
+Robert,
+
+Valid questions. Here's the breakdown:
+
+1. CNC Machine: $95,000 (Aug 15 - Invoice INV-2023-0847)
+2. Laser Cutter: $45,000 (Sep 8 - Invoice INV-2023-0923)
+3. QC Equipment: $40,000 (Sep 12 - Invoice INV-2023-0956)
+
+Total: $180,000
+
+These weren't in the Q3 cash flow because:
+- Aug/Sep purchases will be paid in Q4 (60-day terms)
+- Accounting will reflect in Q4 cash flow
+
+You're right about proactive disclosure. Going forward, we'll report any 
+discretionary spending >$100K to the board monthly rather than quarterly.
+
+I'll have the detailed report ready by Sep 30 as requested.
+
+Sarah
+
+---
+
+From: Emily Davis <emily.davis@acmecorp.com>
+To: Sarah Johnson <sarah.johnson@acmecorp.com>
+Cc: John Smith <john.smith@acmecorp.com>, Robert Wilson <robert.wilson@acmecorp.com>
+Date: September 19, 2023 10:45 AM
+Subject: RE: Board Meeting Follow-up: Equipment Purchases
+
+Sarah & John,
+
+As Board Chair, I want to echo Robert's concerns but also recognize that
+these purchases appear to be legitimate operational needs within policy.
+
+For the discretionary spending report, please include:
+- Full invoices and approvals
+- Business justification
+- Why each was time-sensitive/couldn't wait for board approval
+
+This will help us refine our governance policies.
+
+Emily Davis
+Board Chair
+
+---
+
+END OF EMAIL THREAD

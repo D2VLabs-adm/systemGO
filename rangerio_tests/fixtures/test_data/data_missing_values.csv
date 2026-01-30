@@ -1,0 +1,101 @@
+Record_ID,Name,Email,Phone,Address,Salary,Department,Start_Date,Status,Score,Empty_Column,Mostly_NA
+1,Jesse Townsend,bdennis@example.net,581-617-4035,"23556 Richard Mountain, Rachelfurt, GA 85506",86821.0,Unknown,2024-03-13,N/A,73.67,,N/A
+2,Lance Hernandez,jamesrandall@example.net,676.729.8093,"576 Lisa Hills Suite 436, Wintersview, FL 08131",56721.0,Engineering,2024-05-21,,40.97,,N/A
+3,Carmen Molina,robbinskimberly@example.org,389-539-5570x1738,"2978 Jaclyn Estates, Port Thomaston, ID 33110",79164.0,Engineering,2021-10-16,Active,60.28,,N/A
+4,Daniel Davis,carl60@example.net,(377)657-8399x46236,"Unit 6413 Box 3064, DPO AE 36057",117255.0,Engineering,2024-12-27,,55.4,,N/A
+5,Alexander Carson,jesse01@example.org,401-495-5702x1095,"058 Thompson Light, Gonzalezburgh, PA 76064",67991.0,Unknown,2023-10-03,,94.34,,N/A
+6,Mario Schultz,samuelfoley@example.net,942-819-9306,"07609 Timothy Spurs, West Colleenville, OH 74774",86945.0,HR,2025-03-10,,51.36,,N/A
+7,Vincent Spencer,georgedodson@example.net,001-761-575-1743,"81812 Mccoy Center, Bellfort, IL 65042",51588.0,Sales,2021-03-29,Active,78.21,,N/A
+8,Sarah Chapman,jacobsalexandria@example.org,001-620-393-7013x551,"351 Matthew Trafficway Apt. 361, West Cassandramouth, KY 20485",104476.0,HR,2024-05-03,Active,47.55,,N/A
+9,Peter Smith,thomasgreene@example.net,8874501706,"44346 Green Burgs, Johnhaven, HI 07378",43635.0,,2024-04-25,Inactive,65.97,,N/A
+10,Harold Jackson,xwood@example.net,636.907.5047x90150,"655 Samantha Street Apt. 576, Wrightfort, WA 13295",36173.0,Engineering,2023-08-29,Inactive,14.0,,N/A
+11,David Smith,mary35@example.com,001-709-647-5518x492,"Unit 6600 Box 4181, DPO AA 82804",100848.0,,2023-02-14,,52.36,,N/A
+12,Kim Stevenson,simpsoncrystal@example.com,(411)879-3815,"6296 Krystal Summit Apt. 750, Rodneymouth, GU 94605",40146.0,Unknown,2024-01-03,,84.17,,N/A
+13,Rebecca Burns,thomasharris@example.net,N/A,"61932 Maria Villages, South Kyle, NC 51428",,HR,,Active,55.84,,N/A
+14,Kenneth Osborne,,518.292.0800x8666,"644 Patricia Neck, Elizabethstad, MI 53943",112098.0,Sales,2022-05-25,N/A,67.38,,N/A
+15,William Hughes,tina05@example.net,+1-376-847-2799x54016,"0018 Bauer Burg, Brittanyborough, GU 86378",,Unknown,2025-04-02,N/A,89.09,,N/A
+16,,audreyholmes@example.com,855-941-2478x33352,"2393 Mitchell Oval Suite 894, Anthonyfurt, RI 51054",80089.0,,2023-10-23,Inactive,57.65,,N/A
+17,Mr. Jason Navarro,,001-486-425-9455x619,"2320 Gibson Route, Charlesville, MA 65228",106596.0,Unknown,2024-03-23,,11.13,,N/A
+18,Kenneth Dunn,,001-709-221-0791,"115 Cummings Walks, West Adammouth, AK 60327",41461.0,Sales,,,56.6,,N/A
+19,Catherine Williams,pbrown@example.net,001-888-254-7107x7943,"42602 Martin Shores, West Jeffrey, FL 83069",49266.0,Engineering,2023-07-20,N/A,17.02,,N/A
+20,Rachel Garcia,christine31@example.net,(495)305-6089x5354,"1005 Grant Trail Apt. 702, New Andreside, FM 03713",93489.0,HR,2022-07-04,,28.15,,N/A
+21,Colin Cameron MD,shannonwilson@example.net,6729677679,,,Unknown,2021-05-02,Active,63.09,,N/A
+22,,paul18@example.org,280-653-0967,"10527 Ashley Harbors Apt. 706, New Caleb, PW 37466",,Unknown,2025-03-21,Active,52.41,,N/A
+23,Brian Clayton,,001-479-630-8195x906,"046 Shaffer Falls, Michaelshire, MH 34906",90689.0,Sales,2023-06-11,,12.01,,N/A
+24,Brandi Miller,jennifergiles@example.com,910.622.8210x3196,"66810 Kenneth Village Apt. 156, East Kaitlyn, GA 79374",55165.0,HR,,,64.74,,N/A
+25,Sara Beasley,george67@example.org,976.462.3715x367,,71215.0,HR,2023-11-30,Active,75.66,,N/A
+26,,zachary02@example.net,589.688.1207x47975,"99813 Nicholas Stream Apt. 128, Thompsonport, DE 36052",35527.0,Unknown,2022-06-06,,,,N/A
+27,Timothy Weaver,macdonaldmelissa@example.net,001-883-986-8518x438,"USCGC Rodriguez, FPO AE 01097",64859.0,HR,2022-04-05,,90.96,,N/A
+28,David Howard,david04@example.org,+1-477-593-4213x1334,"PSC 2091, Box 1376, APO AE 39068",36877.0,,,,,,N/A
+29,Peggy Larson,brettwilliams@example.org,+1-677-493-7022x833,"6583 Rhonda Shoals Suite 186, Jeremystad, NC 95894",32816.0,,2021-10-30,Active,59.66,,N/A
+30,,,N/A,"16432 Jill Groves, Emilyton, LA 86224",90009.0,Unknown,2022-01-14,,36.38,,N/A
+31,Judith Keller,,(670)684-4506x6275,"446 Solomon Falls, Wardport, FL 58064",83558.0,Engineering,2023-10-28,Active,17.66,,N/A
+32,James Martinez,,(591)829-0924x166,"1159 Mack Parkway, Christopherville, KS 36811",73906.0,,2024-09-19,N/A,34.42,,N/A
+33,Victoria Hill,anthonyayers@example.org,N/A,"4399 Brian Trail, West Heidi, OH 63551",50744.0,HR,2024-09-29,Inactive,3.96,,N/A
+34,Charles Oconnor,qpark@example.com,7315715410,"264 Watts Centers, West Paulton, IN 90648",42928.0,HR,2025-12-24,,73.91,,N/A
+35,Steven Mayer,kshelton@example.net,330-584-9991,"0353 Chambers Gateway Suite 870, Welchmouth, WY 48555",70793.0,Engineering,,,88.94,,N/A
+36,Heather Rivera,,+1-427-793-4754x024,,35198.0,,2025-08-28,,56.27,,N/A
+37,Bradley Powers,yrussell@example.org,912.489.9028x36872,"Unit 8444 Box 5053, DPO AA 78798",30206.0,HR,2022-05-01,,60.0,,N/A
+38,Cheryl Kent,josephhancock@example.org,(730)840-2789x88901,"89800 Tina Street Apt. 012, Christophermouth, NE 14161",46458.0,,,,2.5,,N/A
+39,Justin Sims,,335-801-7554x694,"40281 Michelle Hills, Reeseborough, SC 89406",61840.0,Engineering,2022-07-26,Inactive,83.69,,N/A
+40,Amy Harper,colleen02@example.com,001-360-832-5377x2355,"90214 Turner Circles Apt. 270, Esparzaberg, ME 29305",118752.0,,,N/A,13.97,,N/A
+41,Edward Leblanc,,702.338.4866x85071,"313 Patricia Wall Suite 618, Sullivanchester, WY 98963",44861.0,Sales,2023-06-24,,51.91,,N/A
+42,,melissa49@example.com,5938443631,"488 David Passage, West Sandrastad, MN 26752",75568.0,HR,2021-07-10,Active,98.5,,N/A
+43,Mr. Adam Murray,katherine80@example.com,851.723.9679x53166,"615 Sally Springs, Amandafort, OK 85598",116270.0,,2025-06-12,,,,N/A
+44,Vincent Adams,matthew81@example.net,7532921368,"6251 Whitney Walk Apt. 058, South Carolyn, PW 26574",,Sales,2021-02-09,,66.18,,N/A
+45,Janet Simmons,,N/A,"5185 Horton Ports, New Susan, OR 07013",89036.0,HR,2021-07-02,,67.55,,N/A
+46,,brittanyherring@example.org,763-502-4846x065,"PSC 5644, Box 5249, APO AP 12803",111517.0,HR,2022-06-04,,26.55,,N/A
+47,,richard41@example.net,+1-576-649-2696x6137,"324 Brown Ville Suite 701, Port Michael, ID 54663",61704.0,HR,,,40.3,,N/A
+48,Eugene Williams,trandavid@example.org,001-219-951-5023x497,"192 Wilson Courts, North Bradleystad, NH 04924",67232.0,HR,2021-12-03,,56.14,,N/A
+49,Kristina Schmidt,cookederrick@example.com,565-467-9240x7869,"846 Jeffrey Corners Apt. 948, East Megantown, AS 15553",103486.0,,2024-02-11,,72.22,,N/A
+50,,tuckerkeith@example.org,577-398-7599,,107877.0,HR,2024-05-22,,58.0,,N/A
+51,Brianna Lewis,,N/A,"745 Stephen Tunnel Apt. 064, Lake Karenmouth, ME 22372",,Sales,2025-04-22,N/A,70.85,,N/A
+52,Joanne Frank,,N/A,"1970 Randy Garden, New Patrick, MS 60504",105790.0,HR,2024-10-29,N/A,56.98,,N/A
+53,Randy Saunders,,N/A,"20615 Hunt Court Suite 096, Laneview, NE 14992",,HR,,Active,92.72,,N/A
+54,Matthew Stone,pattersonleslie@example.net,(502)897-3233x1885,,87297.0,Unknown,2021-02-02,,,,N/A
+55,Terri Contreras,eddielawson@example.net,561.419.9453,"7003 Kristen Highway, Elizabethberg, NM 42877",84921.0,Sales,2024-04-04,N/A,33.81,,N/A
+56,,rcastro@example.com,N/A,"05422 Bonnie Mountain Suite 153, Priceton, VI 20763",89736.0,,2024-04-11,,39.05,,N/A
+57,Timothy Henderson,joshua39@example.net,N/A,,30039.0,Engineering,2022-08-16,Inactive,66.43,,N/A
+58,,,N/A,"695 Scott Ridge, South Michaelshire, ID 89696",43151.0,Unknown,2025-01-18,N/A,64.46,,N/A
+59,Erin Fields,,996-693-4406x344,"7779 Davis Plaza Apt. 043, Spencerbury, HI 42137",73389.0,Sales,2021-11-22,,,,N/A
+60,Michele Mclean,jamestaylor@example.org,+1-789-466-1723x768,"476 Kendra Port Suite 628, Gonzalezmouth, WI 44164",74575.0,HR,2022-02-10,Active,94.58,,N/A
+61,Timothy Rogers,sarah50@example.org,(944)683-8005,,99421.0,HR,2023-11-08,N/A,50.89,,N/A
+62,,weaversandra@example.org,N/A,,78155.0,Unknown,2024-08-23,,68.81,,N/A
+63,Dawn Taylor,,N/A,"335 Robertson Dam, Johnsonshire, NC 20200",,Sales,,Active,98.22,,N/A
+64,Monica Vasquez,npierce@example.org,234.623.4252,"PSC 8599, Box 8779, APO AP 76226",63381.0,,,,90.87,,N/A
+65,,ericabaker@example.net,+1-325-641-4023x30763,,33952.0,HR,2024-10-29,Active,88.95,,N/A
+66,Mrs. Jessica Wilkinson,benjamin00@example.org,559-380-0020x99968,,77892.0,Sales,,,48.17,,N/A
+67,Taylor Lee,brian40@example.com,N/A,"154 Johnson Spurs, Shannonfort, TX 05499",112316.0,,,Active,28.2,,N/A
+68,Mr. Michael Kelly,amandamorse@example.com,9488995289,"07719 Walls Locks, Saraton, ID 26009",111239.0,Engineering,,Active,31.56,,N/A
+69,Donna Wilson,,N/A,"2147 Flynn Crest, South Karenland, UT 27381",60779.0,Unknown,,,,,N/A
+70,,,N/A,"106 Colleen Squares Suite 451, East Dianafurt, VA 96001",93871.0,,2025-07-09,Inactive,99.3,,N/A
+71,,,001-213-533-8772x5211,"3870 Candace Forks Apt. 468, Elizabethchester, OK 88940",43198.0,Sales,,Inactive,86.08,,N/A
+72,,,687-654-1705x3021,"22455 Michael Creek, Danielchester, MA 46369",92505.0,Unknown,2025-04-21,,49.82,,N/A
+73,Anthony Miller,scott99@example.com,N/A,,,Engineering,,,23.99,,N/A
+74,,thinton@example.net,N/A,"6283 Heather Parkway Suite 515, West Annside, PA 73686",,HR,,,44.95,,N/A
+75,Joseph Ewing,patrick69@example.org,N/A,,56823.0,,2025-05-30,Inactive,54.04,,N/A
+76,Lawrence Stevenson,ryanwhite@example.com,N/A,"608 Patricia Extensions, Lake Paulamouth, NC 71104",,Engineering,2023-04-12,N/A,52.76,,N/A
+77,Gordon Wright,david95@example.com,N/A,,67095.0,,2025-06-16,,22.06,,N/A
+78,,,N/A,"7510 Murphy Harbors, New Brendafurt, NY 81282",99410.0,Sales,,Active,,,N/A
+79,Cody Roy,,+1-328-649-6164x47003,,44659.0,HR,,Inactive,80.03,,N/A
+80,Michael Johnson,,+1-730-272-6449x7467,"841 Luna Divide Suite 602, Jamieberg, NY 20821",117390.0,Engineering,2025-02-28,,35.54,,N/A
+81,Jose Ross,,N/A,"9445 Michael Club Apt. 523, South Elaineburgh, WI 07820",94906.0,Sales,,Active,,,N/A
+82,,,N/A,"748 Richardson Run Apt. 657, Carterland, IN 34249",,Sales,2025-11-04,Inactive,46.91,,N/A
+83,,,N/A,,,Engineering,,Inactive,16.55,,N/A
+84,Andrew Castillo,,N/A,"708 Jennifer Trafficway Suite 780, Port Pamelamouth, RI 80839",,Sales,,N/A,59.51,,N/A
+85,,diazderek@example.net,001-691-858-3876x7542,"60529 Michael Haven, South Sean, WV 02461",108498.0,Engineering,2023-03-21,Inactive,,,N/A
+86,,michael44@example.net,N/A,,,,2023-10-03,,23.23,,N/A
+87,Steven Smith,seanwarren@example.org,542-340-3326,,119765.0,,,Active,,,N/A
+88,Christina Torres,,N/A,"843 Vaughn Via Apt. 356, Jamesmouth, MN 28989",,Sales,2024-03-31,,88.0,,N/A
+89,Rebecca Robinson,,861.679.6738x17009,,36921.0,HR,2024-04-24,Inactive,,,N/A
+90,Emily Alvarez,,001-913-954-1777x172,"73831 Lopez Cliffs Apt. 817, Bellview, ND 20749",63489.0,HR,2025-07-30,Active,,,N/A
+91,,lisa73@example.org,N/A,,,HR,2021-09-21,,51.23,,N/A
+92,John Chandler,,N/A,"USNV Cameron, FPO AA 66542",,Unknown,,,,,N/A
+93,,inelson@example.net,N/A,,,HR,2022-12-22,,,,N/A
+94,Nicholas Faulkner,,(584)908-0721,,44204.0,HR,2024-03-20,N/A,9.04,,N/A
+95,Jennifer Hebert,,N/A,"88327 Brian Mall, Josemouth, OH 67915",,Sales,,Inactive,,,N/A
+96,James Griffin,,N/A,,,Engineering,2021-03-14,N/A,5.94,,Gregory Glass
+97,Laura Mayo,leekaren@example.org,501-214-7654x5851,"Unit 4055 Box 2803, DPO AE 32761",103658.0,,2021-06-16,,76.69,,Mrs. Danielle Lee MD
+98,,lawsonmary@example.org,N/A,"4771 Anne Prairie, West Stacey, NV 94822",,Engineering,,Active,28.33,,Brittany Green
+99,,,+1-715-923-4510,,53877.0,Unknown,,,68.8,Value1,Steven Lee DVM
+100,,,(324)775-0331x6316,,36407.0,,2024-11-05,Inactive,24.82,Value2,Eric West

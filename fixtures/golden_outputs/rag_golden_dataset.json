@@ -1,0 +1,104 @@
+[
+  {
+    "question": "What columns are in this dataset?",
+    "answer": "The dataset contains three columns: `chunk_id`, `text` and `chunk_type`.",
+    "contexts": [
+      {
+        "data_source_name": "Fre\u0301de\u0301rik Desrochers - CV ITI.pdf",
+        "data_source_type": "pdf",
+        "type": "data_source_summary",
+        "data_source_id": 416,
+        "row_count": 5,
+        "column_count": 3
+      },
+      {
+        "chunk_index": 0,
+        "type": "data_source_profile",
+        "filename": "datasource_416_profile",
+        "data_source_id": 416
+      }
+    ],
+    "validation_date": "2026-01-11T00:54:16.625837",
+    "model": "qwen3-4b-q4-k-m"
+  },
+  {
+    "question": "How many records are there?",
+    "answer": "There are 251 data records in the provided dataset. This is determined by counting all rows from row number 251 to row number 300, which represents a total of 76 entries (row #300 being excluded).",
+    "contexts": [
+      {
+        "total_rows": 700,
+        "end_row": 300,
+        "format": "markdown_table",
+        "start_row": 251,
+        "type": "data_source_data",
+        "data_source_id": 388,
+        "filename": "datasource_388_data",
+        "chunk_index": 5
+      },
+      {
+        "row_count": 195,
+        "column_count": 6,
+        "data_source_name": "TechStart_LLC_transactions.csv",
+        "data_source_type": "csv",
+        "data_source_id": 414,
+        "type": "data_source_summary"
+      }
+    ],
+    "validation_date": "2026-01-11T00:55:00.772105",
+    "model": "qwen3-4b-q4-k-m"
+  },
+  {
+    "question": "What is the date range of this data?",
+    "answer": "The dataset spans from January 1st, 2013 to December 1st, 2014. Based on the data rows provided (rows 251-269), all dates fall within this timeframe.",
+    "contexts": [
+      {
+        "start_row": 251,
+        "end_row": 300,
+        "chunk_index": 5,
+        "filename": "datasource_388_data",
+        "total_rows": 700,
+        "type": "data_source_data",
+        "format": "markdown_table",
+        "data_source_id": 388
+      }
+    ],
+    "validation_date": "2026-01-11T00:55:11.438151",
+    "model": "qwen3-4b-q4-k-m"
+  },
+  {
+    "question": "Summarize the key statistics",
+    "answer": "Here\u2019s a summary of the key statistics from the provided data:\n\n| Statistic           | Value       |\n|---------------------|-------------|\n| Maximum Units Sold  | 30153.0     |\n| Minimum Sales        | -1076.25    |\n| Highest Gross Sales | 4,389,400.0   |(Sum of all gross sales)       \n\nNotably there is a negative profit recorded for the Enterprise segment in Germany on February 1st , 2014 indicating an operating loss that year which suggests either high COGS or low revenue within this sector..",
+    "contexts": [
+      {
+        "data_source_id": 388,
+        "start_row": 251,
+        "type": "data_source_data",
+        "end_row": 300,
+        "total_rows": 700,
+        "filename": "datasource_388_data",
+        "chunk_index": 5,
+        "format": "markdown_table"
+      }
+    ],
+    "validation_date": "2026-01-11T00:55:30.860356",
+    "model": "qwen3-4b-q4-k-m"
+  },
+  {
+    "question": "List the unique values in the category column",
+    "answer": "Here\u2019s a list of the unique categories found in the transaction data:\n\n*   CapEx\n*   Expense\n*   OpEx\n*   Revenue",
+    "contexts": [
+      {
+        "total_rows": 187,
+        "type": "data_source_data",
+        "start_row": 1,
+        "chunk_index": 0,
+        "end_row": 50,
+        "data_source_id": 395,
+        "format": "markdown_table",
+        "filename": "datasource_395_data"
+      }
+    ],
+    "validation_date": "2026-01-11T00:55:50.906863",
+    "model": "qwen3-4b-q4-k-m"
+  }
+]

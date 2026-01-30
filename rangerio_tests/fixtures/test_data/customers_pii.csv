@@ -1,0 +1,76 @@
+Customer_ID,Name,Email,Phone,Mobile,Address,City,State,Country,Postal_Code,Credit_Card,Card_Expiry,CVV,Account_Balance,Member_Since
+CUST00001,Nicole Pacheco,donnachavez@example.com,(299)873-3549x4651,(340)658-0085,69656 James Plains,Lake Glenn,Florida,USA,25172,4980-3188-8834-3509,08/29,720,18681.24,2023-10-13
+CUST00002,Heather Butler,whitney22@example.org,902-876-2126,+1-227-986-8765x326,846 Johnson Camp,Bushville,Pennsylvania,USA,63616,4718-9998-8714-9806,11/25,880,12373.27,2025-10-25
+CUST00003,Nicholas Fox,steven18@example.net,737-218-9490,678.679.5654x4209,792 Diana Highway,West Toddberg,North Carolina,USA,10575,4772-2341-9609-8319,09/29,470,3905.14,2025-04-06
+CUST00004,Casey Campbell,alexis19@example.org,001-227-752-4372,429-527-6637,41027 Alvarez Mountains Apt. 667,Dustinchester,Alabama,USA,38353,4577-2838-2011-9972,09/25,686,26833.01,2025-08-23
+CUST00005,Michael Nixon,davisamanda@example.com,(794)454-4149x67393,680-501-0618x17534,91093 Jean Crest,Port Cassandrafurt,Texas,USA,85423,4168-6375-9525-8239,02/29,310,35845.9,2023-11-02
+CUST00006,Stephanie Dominguez,kenneth17@example.com,001-465-942-1406x65044,873-596-2712,4101 Ashley Glen,Smithfort,Georgia,USA,86073,4500-2489-9361-8298,01/27,235,25662.39,2024-03-16
+CUST00007,Mary Adams,rebecca90@example.net,001-777-766-1830x671,+1-246-801-5851x74328,6157 Nicole Mill,East Austin,Alaska,USA,94838,4467-1945-8575-6049,12/24,505,12722.86,2025-12-27
+CUST00008,James Sparks,victor70@example.org,205-406-1387x82931,407.390.3202x0417,79931 Ronald Valleys,Nguyenshire,Ohio,USA,18501,4003-4570-2196-1742,07/26,817,3188.0,2022-08-12
+CUST00009,Cindy Williams,matthewmartinez@example.org,001-462-258-2739x02196,610.902.1946x7232,29092 Salazar Corners Suite 560,East David,North Dakota,USA,13042,4061-2130-8734-1519,05/27,284,38448.6,2024-02-06
+CUST00010,Victoria Romero,qtownsend@example.org,603-512-7722x005,(345)397-0108x22078,799 Barnes Summit,Jerryville,Massachusetts,USA,30356,4784-7887-7135-7266,08/27,484,4012.5,2021-06-30
+CUST00011,Sheila Bennett,charlesrichards@example.org,(723)497-2652x73543,4907421776,9292 Christopher Walks,Atkinsborough,Pennsylvania,USA,62562,4987-9835-3178-6697,02/25,650,19652.93,2025-03-11
+CUST00012,Nicholas Fitzgerald,johnhamilton@example.org,001-229-806-0078,667.517.7318x06325,74279 Tiffany Mountain,Port Jacqueline,Idaho,USA,49052,4130-4648-1056-1372,05/27,789,35954.7,2024-02-21
+CUST00013,April Burton,vbarry@example.net,7462498931,550.416.5790x55281,81793 Luke Grove Suite 401,Michaelfort,North Carolina,USA,69534,4434-9715-7214-4762,04/27,454,7756.07,2025-02-25
+CUST00014,Joseph Bryan,shannon51@example.org,911.462.4112x412,880.946.8275,3103 Jenkins Junctions,Toddhaven,Oklahoma,USA,58861,4193-2848-1527-7868,10/24,346,10304.08,2023-04-18
+CUST00015,Stephanie Parker,jeremy54@example.org,(454)472-9284,001-422-531-0592x745,552 West Estates,Davidtown,Montana,USA,65960,4103-1550-8314-1797,04/29,145,20113.27,2024-11-06
+CUST00016,Tanya Moore,deborah47@example.com,001-892-597-5170x28140,251.350.9398x343,186 Tracy Rapids Apt. 562,Woodstad,Alabama,USA,37810,4239-9843-4559-1924,03/28,396,11708.08,2022-09-24
+CUST00017,Jeremy Hoffman,jessicawallace@example.com,942.766.2991x234,996-410-6462,64870 Davenport Hollow,Hansenmouth,Iowa,USA,04018,4938-6224-6253-4881,05/25,776,26062.55,2024-12-17
+CUST00018,Eric Davidson,qmartinez@example.com,(827)630-1471x95979,+1-971-458-9042x9025,04565 Keith Pines Apt. 832,New Karenside,Massachusetts,USA,41947,4423-5923-5508-1998,09/28,852,45578.88,2025-02-20
+CUST00019,Elizabeth Jennings,cody95@example.org,3285457652,(383)838-9888,12075 Vazquez Dam Suite 985,Lake Kevin,West Virginia,USA,16045,4641-7999-9120-1768,06/29,787,19057.73,2022-02-12
+CUST00020,Brenda Perez,jasonzavala@example.com,001-211-907-6031x089,540-514-0119,501 Meghan Harbors,Michaelhaven,Wyoming,USA,95994,4537-6222-7821-7688,03/26,485,9193.95,2024-01-26
+CUST00021,Andrea Weiss,ricejennifer@example.com,(480)913-8759,+1-312-456-6383x61517,4801 Snyder Lights Suite 794,Perezchester,Maine,USA,56594,4550-8758-4948-4692,05/29,247,40288.81,2021-12-12
+CUST00022,Ryan Alvarez,harry71@example.com,581.712.6691x215,696.813.6749,9678 Hernandez Motorway Apt. 147,Hallberg,Alaska,USA,13556,4936-1944-7761-7824,09/28,237,19420.95,2024-09-10
+CUST00023,Kathleen Johnson,patrickshelton@example.org,699-711-8773x4778,+1-880-906-1675,02842 Jordan Inlet Suite 719,Kellerside,Oregon,USA,62081,4261-4331-6411-2295,08/26,194,26781.78,2023-05-21
+CUST00024,Katie Myers,ygarza@example.net,+1-854-350-0902x55905,(355)765-0333x49114,85076 Adams Square,Chapmanmouth,Missouri,USA,75258,4849-4120-1844-5398,07/29,719,30146.1,2022-12-16
+CUST00025,Rhonda Garcia,matthewshaw@example.net,629-845-6371x83440,991.891.9541,1484 Alvarado Island,South Richard,South Carolina,USA,68051,4894-2192-4082-4555,08/25,990,45351.64,2023-04-10
+CUST00026,Catherine Smith,barbaralewis@example.net,548.496.9083x572,001-546-865-1364x4249,23034 Washington Mews,Lucaston,Illinois,USA,21388,4310-1251-4470-4113,12/24,864,49978.6,2022-05-15
+CUST00027,Richard Ramirez,dawnwilliams@example.net,500.315.9416x5162,001-581-389-8471,9636 Drew Extensions Apt. 476,Michelleton,New York,USA,70423,4490-4974-4350-7498,04/28,429,38775.69,2022-11-17
+CUST00028,Emily Coleman,sylviasuarez@example.org,(675)740-9003x486,+1-418-937-6064x41343,604 Madeline Overpass Suite 656,Port Ethanview,North Carolina,USA,09199,4389-8639-9743-6886,05/26,468,25640.83,2022-10-06
+CUST00029,Robin Rojas,wneal@example.org,+1-527-420-6345x9112,+1-365-877-2429x543,66930 Sandra Rue Apt. 173,Jacquelineburgh,Arkansas,USA,53065,4509-8635-2615-8692,06/25,479,15646.1,2024-02-05
+CUST00030,Brittany Rubio,staceywilson@example.net,567.571.3334x47626,736-926-2044x3973,72563 Erickson Street,Charlesside,Arkansas,USA,07331,4046-4625-3390-1265,05/28,698,28957.15,2022-09-02
+CUST00031,Terry Barajas,smithwilliam@example.com,965-428-0924x2875,458-962-4150,564 Austin Trace Suite 856,West Jillian,New York,USA,20327,4427-5836-3497-4214,06/25,488,28489.48,2023-10-14
+CUST00032,Mallory Gonzales,edgarhall@example.org,942.376.1707x5877,001-521-251-3422x8499,1371 Johnson Springs,South Nathanielville,Massachusetts,USA,20656,4251-9180-6530-5216,08/29,757,36979.7,2021-02-23
+CUST00033,Michael Castillo,brooke05@example.org,+1-897-359-2304x5018,(342)636-1032x6642,4925 Marilyn Passage Apt. 776,Adamschester,Colorado,USA,99655,4471-3756-6770-3773,03/29,659,24415.82,2023-02-12
+CUST00034,Cody Mccoy,williamsmatthew@example.com,+1-432-678-8147x61742,386.849.0810,79454 Kayla Brook Apt. 722,Williamschester,Virginia,USA,39514,4938-9882-1962-9584,01/24,937,33410.78,2022-07-29
+CUST00035,Nicole Cole,matthew23@example.org,394-216-8006,(777)869-7499,22031 Heather Field Apt. 372,South Megan,Ohio,USA,25524,4782-1104-7756-3252,11/25,169,35358.48,2021-06-08
+CUST00036,Brittany Henderson,martinelijah@example.net,777.207.9334x960,966-879-9840,997 Jennifer Pines Apt. 695,West Patriciachester,New Mexico,USA,15828,4009-4583-9285-8471,06/24,732,31886.43,2023-06-24
+CUST00037,Hannah Terry,martinjessica@example.com,(873)783-9597x246,329.834.1722x3297,3380 Michael Green Suite 228,Port Brycechester,Delaware,USA,81446,4956-8916-8993-1257,01/28,664,20566.93,2022-02-20
+CUST00038,Katelyn Chaney,kayla84@example.org,001-289-310-7711x991,(313)452-4787,2137 Hammond Avenue Apt. 754,North Joseph,Virginia,USA,99440,4017-9673-5501-9777,05/24,614,40657.86,2023-01-30
+CUST00039,Danielle Mullins,icobb@example.com,(867)485-0720x81155,(706)202-9084x66845,926 Schneider Plains Suite 563,Christopherside,Michigan,USA,51618,4690-8054-3937-2753,02/28,252,12048.44,2024-08-18
+CUST00040,Beth Braun,jason88@example.com,752.600.8943x46810,+1-585-710-1749x0753,9268 Daniel Path Apt. 571,Lake Ronald,Nebraska,USA,11241,4634-9625-5135-6807,05/27,180,18652.58,2021-06-19
+CUST00041,Carlos Lewis,woodalicia@example.net,+1-886-449-7677,(582)977-2881,28519 Rodriguez Land Suite 082,West Kevinstad,Maryland,USA,39033,4415-8520-4984-4700,05/29,947,42393.36,2023-06-08
+CUST00042,Brenda Lawrence,zunigakevin@example.com,827.901.8510,001-449-975-6792,725 Lauren Shores Suite 636,Ambermouth,West Virginia,USA,36857,4669-1519-2531-7640,07/27,665,23800.26,2024-03-27
+CUST00043,Michelle Armstrong,ann18@example.org,298.390.9837,+1-282-904-3397x18956,6260 Reyes Course,North Amberport,Georgia,USA,24443,4652-1154-3807-2354,08/27,760,39218.82,2022-04-13
+CUST00044,Eric Russell,brianwoodward@example.org,6048615265,803-339-9378,57861 Johnson Roads Apt. 048,East Kathrynberg,Maryland,USA,74982,4579-2562-9653-1697,04/25,988,34614.39,2023-01-15
+CUST00045,Mark Harris,nathanielgalloway@example.org,+1-468-270-0794,6742946539,891 Davis Square,Port Donaldside,Louisiana,USA,57119,4580-8790-5441-1762,02/29,387,44965.58,2022-01-22
+CUST00046,Rebekah Henson,cynthia74@example.org,+1-455-837-9502x09700,+1-376-781-1807,562 David Land Apt. 703,Port Juanstad,Illinois,USA,12293,4577-1539-3938-6152,01/25,701,7209.58,2025-02-01
+CUST00047,Rhonda Walker,ccoffey@example.com,593.403.6149x8728,692-512-4938,894 Smith Meadow,Port Sheilachester,Nebraska,USA,36419,4840-7525-2260-5903,03/28,346,28334.8,2021-08-12
+CUST00048,Kathleen Holmes,stephensonjeffrey@example.com,(587)550-6351x90361,(754)611-0760,73505 Sherry Trail,Duranmouth,Pennsylvania,USA,16862,4869-7375-9856-6435,07/29,243,39524.9,2021-06-07
+CUST00049,Andrew Edwards,pattonbryan@example.com,6498611080,(319)763-9907x6769,8593 Curtis Ranch,New Kristineborough,Oregon,USA,17013,4705-2284-9204-6666,01/24,547,11607.2,2024-03-11
+CUST00050,Jason Hardy,ilopez@example.org,4244968549,249.854.5089x2038,33153 Neal Mountain Suite 995,Robertburgh,Connecticut,USA,60047,4077-6580-7499-6347,01/29,379,39177.41,2025-05-21
+CUST00051,Kathleen Mora,heatherowens@example.org,275.363.6205,(508)512-4739x500,34258 Gregory Brooks Apt. 410,South Diana,Delaware,USA,44853,4461-9038-4737-6829,09/27,542,9286.89,2025-09-08
+CUST00052,David Pacheco,shelleyrowland@example.net,(211)522-3386x55963,+1-942-553-0428,9128 Potter Rue,Victormouth,Idaho,USA,42683,4599-7227-2404-5839,04/29,175,4101.9,2024-07-26
+CUST00053,Karen Sosa,zadams@example.net,001-603-833-7363,(592)254-8121x4785,956 Mcdonald Lodge Suite 754,Johnsonmouth,Iowa,USA,35316,4157-7225-3527-7383,06/26,209,4576.02,2024-03-26
+CUST00054,Bradley Kirby,hartmansara@example.org,615-608-3535,001-243-992-8404x4566,3337 Zachary Turnpike,Sharpmouth,Michigan,USA,11756,4965-6050-8286-6896,05/24,235,4364.86,2022-07-27
+CUST00055,Randy Wolfe,samuelfarrell@example.org,(829)624-0755x366,590-890-2259x99966,637 Mark Mission,Christopherville,Utah,USA,72971,4441-8353-9395-7685,02/24,191,17695.71,2021-11-22
+CUST00056,Lindsey Johnson,chadmccarty@example.com,234.481.7058,666-821-2867x16323,99493 Hill Avenue Apt. 716,New Mark,Oregon,USA,64851,4095-6315-7311-1202,05/27,497,38958.46,2023-04-22
+CUST00057,Nancy Roberts,treed@example.com,(892)263-2967x6291,324.784.1376,85672 Clark Cape,Johnsonmouth,Missouri,USA,45544,4742-4977-9537-3778,11/27,273,6942.0,2024-09-25
+CUST00058,Jennifer Smith,fletcherderek@example.net,001-477-271-1837x2742,+1-912-741-8621x042,08370 Peter Inlet,Williamstown,Arkansas,USA,49966,4308-5397-9079-3390,02/25,545,13798.09,2024-11-03
+CUST00059,Jade Allen,smithanthony@example.org,531-531-2206x81558,+1-466-213-3155,506 Stephen Circles Suite 950,East Robertfort,Connecticut,USA,93893,4306-8933-2260-6916,05/25,838,31251.68,2023-09-08
+CUST00060,Sarah Jackson DVM,tina62@example.com,(857)515-0997,490.730.9143x63910,3263 John Stream Suite 524,Dawnton,North Dakota,USA,54881,4608-4203-8501-2752,03/26,106,47441.17,2024-03-30
+CUST00061,Alexander Bradford,matthew38@example.org,+1-233-496-8527x01713,321.829.8338,2336 Catherine Hollow Suite 973,Michellefort,Colorado,USA,47632,4340-7224-6399-8212,06/27,935,41176.76,2022-12-30
+CUST00062,Jeremy Wagner,ywolf@example.com,4666149828,(574)474-6897x1527,08576 Bentley Summit,Patrickport,Tennessee,USA,77611,4666-3230-5922-6253,10/29,305,23950.49,2021-05-12
+CUST00063,Wendy Martinez,jamesgraham@example.com,001-458-675-0663x37050,+1-872-343-9920x116,2644 Willis Street,Goodwinland,Connecticut,USA,83886,4181-7524-6228-5775,12/29,748,24550.37,2023-11-14
+CUST00064,Robin Adams,sarahsanders@example.com,6278011686,(325)922-3728,30234 Alexander Road,Port Danaland,Maine,USA,11734,4589-4971-6339-7161,05/27,473,5694.39,2022-11-23
+CUST00065,Gordon Richards,wwashington@example.org,2048090138,+1-584-777-5965x555,9055 Aaron Ways Suite 209,Port Alyssabury,Mississippi,USA,59734,4577-4273-9939-3947,11/28,127,47650.23,2024-02-05
+CUST00066,Karen Gutierrez,aaronlittle@example.com,3507573976,(371)664-9328x98027,71783 Jason Terrace Apt. 160,West Raven,Wyoming,USA,37248,4472-4434-8183-5773,12/24,938,42389.4,2022-02-08
+CUST00067,John Merritt,wadesandra@example.net,001-571-553-9915x6686,414-711-1593x195,040 Melanie Manors Suite 528,North Randall,Ohio,USA,60873,4814-7703-9180-3280,11/26,347,12634.08,2022-08-02
+CUST00068,Elizabeth Robinson,shernandez@example.org,001-809-254-8149x7374,823-930-2764x20865,6184 Horton Fields Suite 125,Port Sarahport,New Jersey,USA,86305,4157-7932-7176-2211,08/28,590,29112.2,2021-10-28
+CUST00069,Michael Carter,jasonbrock@example.org,001-405-291-2662x0157,385-596-2630,4926 Kimberly Way Suite 475,North Darrylville,New York,USA,84571,4547-9300-7853-9907,01/26,818,44775.08,2024-05-07
+CUST00070,Allison Berry,vhill@example.org,001-726-376-4921,001-382-560-6888x718,92087 Martinez Crossroad,Lake Evan,Oklahoma,USA,34155,4549-2392-2791-5067,11/29,463,8316.92,2025-04-06
+CUST00071,William Hunter,tammy26@example.net,9347084872,459.588.3103x03243,2961 Green Run Apt. 671,Ericaberg,Ohio,USA,27208,4627-1725-7547-6432,07/24,110,4930.33,2021-05-10
+CUST00072,Whitney Terry,jenniferelliott@example.net,392.862.5660x93141,251-355-4234,61128 Chapman Valley Suite 185,Andreaville,Arkansas,USA,22881,4227-9366-9499-4621,08/26,500,23153.16,2022-08-05
+CUST00073,Catherine Shaffer,iwoods@example.com,7825226940,+1-696-372-7578x44683,5111 Shirley Expressway Apt. 148,Stokestown,Nevada,USA,89241,4695-9199-3469-6651,01/27,207,14771.61,2023-07-20
+CUST00074,Karen Robertson,sullivanchristina@example.net,9684538909,+1-783-321-5285x06762,381 Evans Hill Suite 309,Robinsonport,Tennessee,USA,68072,4942-2406-2901-3321,06/26,451,22766.63,2025-02-18
+CUST00075,Joel Williamson,abrown@example.net,854.951.0526x501,418.682.6170,6545 Mcclain Plain,Danielmouth,Texas,USA,58088,4211-9537-8912-6706,08/24,548,36099.7,2021-10-24

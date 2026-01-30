@@ -1,0 +1,76 @@
+Customer_ID,Name,Email,Phone,City,State,Registration_Date,Amount
+1,Stephanie Norris,tommy49@example.net,+1-615-737-1390,Suarezberg,KS,2024-04-01,567.31
+2,Jared Martinez,hannah46@example.com,764-419-2932,Port Luke,FL,2024-02-19,736.86
+3,David Atkins,jamesthomas@example.net,+1-652-792-9184x76658,Jessicaland,MN,2024-09-11,704.6
+4,Shawn Anderson,kellymoore@example.com,910-490-7291x593,New Maureenfurt,IN,2024-08-01,674.66
+5,Randall Meza,ericsmith@example.net,+1-574-760-9169x05130,Cranetown,IN,2025-10-14,897.54
+6,Curtis Skinner,ulee@example.org,(586)683-7906,South Brian,TX,2025-11-14,870.87
+7,Brian Hoffman MD,stephenmendoza@example.org,7884328228,Melissaport,MI,2024-10-29,648.46
+8,Rodney Smith,cbarry@example.org,+1-250-878-2584x8774,New Lisa,OH,2024-10-06,144.87
+9,Jason Bradley,phillipandrade@example.com,001-600-270-9383x571,North Pamela,HI,2024-10-27,531.31
+10,Karen Greene,bpalmer@example.org,369-465-2995x4493,Tylerside,IL,2025-09-24,510.17
+11,Sandra Flowers,sandy41@example.org,4299110131,Lake William,UT,2025-12-02,441.86
+12,James Mitchell,hmueller@example.com,6788742536,West Teresastad,NH,2025-03-25,942.26
+13,Edward Little,garyreed@example.com,001-810-864-8947x8836,Youngland,MN,2025-06-24,537.9
+14,John Mccarthy,bobbyperry@example.net,+1-332-890-2948x2647,North Joannabury,WY,2025-10-31,868.85
+15,Vincent Shaffer,emorgan@example.org,(570)526-6784,Nunezfort,VI,2024-08-16,891.18
+16,Valerie Bryant,josephhoffman@example.org,(836)253-9342x43385,Lake Deborahmouth,OH,2025-04-24,788.76
+17,Corey Wagner,devin18@example.org,811.498.9733x256,Whitehaven,WI,2025-05-19,89.93
+18,John Ruiz,mitchellholly@example.org,001-922-496-5290x40388,Michellemouth,UT,2025-03-06,620.06
+19,Jorge Martin,zwilliamson@example.net,727.539.8365x64582,Meadowsville,CT,2025-08-06,361.38
+20,Timothy Rogers,susanali@example.com,001-402-345-6893x25931,Richardmouth,AZ,2025-02-09,739.3
+21,Deborah Hill,erinclark@example.org,249.509.1086x504,East Kimberlyside,MP,2024-02-15,113.92
+22,Christian Walker,michael51@example.org,572-464-1419x9070,Colemanberg,IA,2024-07-24,16.7
+23,Levi Obrien,wellsbrittany@example.com,(530)740-0363x67654,Bowersmouth,TX,2025-07-02,696.92
+24,Evan Russell PhD,ncoleman@example.org,(513)615-2454x9822,North James,MN,2024-06-19,657.82
+25,Bethany Shaffer,jmiddleton@example.org,+1-781-641-4323x384,Pageville,VA,2024-09-15,651.03
+26,Dominic Jones,elijahmoss@example.net,(407)241-6598x4459,South Amber,AS,2024-03-20,113.02
+27,Brandon Smith,carrie90@example.org,348-974-9049x37707,South Kimberly,ID,2024-02-01,661.38
+28,Micheal Williams,melindamaynard@example.com,+1-351-917-7232x679,Sandraport,VI,2025-02-08,894.53
+29,Laurie Mitchell,anneparker@example.net,+1-955-480-7604x478,Davidport,FL,2025-06-17,861.87
+30,Katherine Carney,martinezshannon@example.com,(632)979-0312x02166,New Mirandafurt,UT,2025-11-28,546.64
+31,Troy Roy,michellehunter@example.com,7686747801,Warrentown,ME,2025-05-01,356.06
+32,Michael Owens,caitlin08@example.com,001-911-629-1603,Pamelaside,NH,2025-07-16,890.55
+33,Jennifer Hill,katherine64@example.org,(557)671-7403x58134,West Jessica,CT,2024-07-13,939.24
+34,Tiffany Miller,michaelbooth@example.org,(805)324-9498,Davidmouth,VA,2025-09-01,790.87
+35,Anthony Schultz,millermichael@example.org,918-697-3368,Marcland,UT,2024-11-25,462.27
+36,Caleb Trevino,dustinwilliams@example.net,4236205223,Lake Patricia,SD,2025-05-17,108.73
+37,Matthew Owen,oconnellfrederick@example.net,212-986-5505x3874,Philipton,RI,2024-04-06,421.76
+38,Shane Lee,amberjohnston@example.net,(422)849-4545x6296,Tyronehaven,NH,2024-12-31,753.7
+39,Benjamin Craig,jane74@example.com,596-594-1491x6354,Nunezchester,MN,2025-10-11,224.05
+40,Michael Osborn,calvin24@example.net,4166531120,West Amandabury,CT,2025-07-10,377.33
+41,Amanda Campbell,thomasmoore@example.com,743-705-3708,Lake Audreyside,TX,2025-02-01,343.74
+42,Sherry Pollard,nsmith@example.com,001-900-440-1413x0957,North Garychester,AL,2024-11-30,783.54
+43,Elaine Wright,collinsnicholas@example.org,001-283-276-0194x2842,New Shannon,ID,2025-08-23,322.11
+44,Donald Bryant,moralesjoseph@example.org,(804)456-4395x571,Kimberlyberg,AL,2025-03-31,570.55
+45,Dr. Barbara Long,bethberry@example.net,921-980-2950,Port Robert,MH,2024-05-09,278.79
+46,Jonathan Mccarty,sharonflores@example.org,(761)608-7617,Zamoraberg,DE,2024-11-25,945.52
+47,Cory Dunn,vdean@example.org,+1-428-499-4548x995,Wardview,MT,2024-09-05,210.47
+48,Tammy Jackson,ymartinez@example.org,+1-388-456-3661x35629,North Michaelburgh,IA,2025-02-05,839.39
+49,Erik Lewis,qbean@example.com,946.239.0150,West Jenniferfort,OR,2024-12-18,398.45
+50,Shane Golden,joe75@example.com,(921)522-3238,Millerside,NC,2024-11-18,731.51
+51,Cory Dunn,vdean@example.org,+1-428-499-4548x995,Wardview,MT,2024-09-05,210.47
+52,Brian Hoffman MD,stephenmendoza@example.org,7884328228,Melissaport,MI,2024-10-29,648.46
+53,Tiffany Miller,michaelbooth@example.org,(805)324-9498,Davidmouth,VA,2025-09-01,790.87
+54,John Mccarthy,bobbyperry@example.net,+1-332-890-2948x2647,North Joannabury,WY,2025-10-31,868.85
+55,Dominic Jones,elijahmoss@example.net,(407)241-6598x4459,South Amber,AS,2024-03-20,113.02
+56,Edward Little,garyreed@example.com,001-810-864-8947x8836,Youngland,MN,2025-06-24,537.9
+57,David Atkins,jamesthomas@example.net,+1-652-792-9184x76658,Jessicaland,MN,2024-09-11,704.6
+58,Dr. Barbara Long,bethberry@example.net,921-980-2950,Port Robert,MH,2024-05-09,278.79
+59,Jorge Martin,zwilliamson@example.net,727.539.8365x64582,Meadowsville,CT,2025-08-06,361.38
+60,Jennifer Hill,katherine64@example.org,(557)671-7403x58134,West Jessica,CT,2024-07-13,939.24
+61,Anthony Schultz,MILLERMICHAEL@EXAMPLE.ORG,918-697-3368,Marcland,UT,2024-11-25,462.27
+62,Randall Meza,ERICSMITH@EXAMPLE.NET,+1-574-760-9169x05130,Cranetown,IN,2025-10-14,897.54
+63,Jason Bradley,PHILLIPANDRADE@EXAMPLE.COM,001-600-270-9383x571,North Pamela,HI,2024-10-27,531.31
+64,James Mitchell,HMUELLER@EXAMPLE.COM,6788742536,West Teresastad,NH,2025-03-25,942.26
+65,Jennifer Hill,KATHERINE64@EXAMPLE.ORG,(557)671-7403x58134,West Jessica,CT,2024-07-13,939.24
+66,Brian Hoffman MD,STEPHENMENDOZA@EXAMPLE.ORG,7884328228,Melissaport,MI,2024-10-29,648.46
+67,Jorge Martin,ZWILLIAMSON@EXAMPLE.NET,727.539.8365x64582,Meadowsville,CT,2025-08-06,361.38
+68,Cory Dunn ,vdean@example.org,+1-428-499-4548x995,Wardview,MT,2024-09-05,210.47
+69,Evan Russell PhD ,ncoleman@example.org,(513)615-2454x9822,North James,MN,2024-06-19,657.82
+70,Erik Lewis ,qbean@example.com,946.239.0150,West Jenniferfort,OR,2024-12-18,398.45
+71,Edward Little ,garyreed@example.com,001-810-864-8947x8836,Youngland,MN,2025-06-24,537.9
+72,Brian Hoffman MD ,stephenmendoza@example.org,7884328228,Melissaport,MI,2024-10-29,648.46
+73,Caleb Trevino ,dustinwilliams@example.net,4236205223,Lake Patricia,SD,2025-05-17,108.73
+74,Troy Roy ,michellehunter@example.com,7686747801,Warrentown,ME,2025-05-01,356.06
+75,Valerie Bryant ,josephhoffman@example.org,(836)253-9342x43385,Lake Deborahmouth,OH,2025-04-24,788.76

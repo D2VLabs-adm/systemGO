@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System GO - RangerIO Test Platform</title>
+    <style>
+        :root {
+            --bg-primary: #0a0e14;
+            --bg-secondary: #131920;
+            --bg-elevated: #1a2028;
+            --accent: #00ff88;
+            --accent-dim: #00cc6a;
+            --text-primary: #e6e6e6;
+            --text-secondary: #8b949e;
+            --border: #2d3748;
+            --error: #ff5555;
+            --warning: #ffaa00;
+            --success: #00ff88;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-primary);
+        }
+        
+        .logo h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .logo span {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-secondary);
+        }
+        
+        .status-dot.connected { background: var(--success); }
+        .status-dot.disconnected { background: var(--error); }
+        .status-dot.running { background: var(--warning); animation: pulse 1s infinite; }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        main {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 0;
+        }
+        
+        .config-panel {
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        
+        .option:hover {
+            border-color: var(--accent);
+        }
+        
+        .option.selected {
+            border-color: var(--accent);
+            background: rgba(0, 255, 136, 0.1);
+        }
+        
+        /* Native checkbox/radio styling */
+        .option input[type="checkbox"],
+        .option input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--border);
+            border-radius: 3px;
+            background: transparent;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.15s ease;
+            position: relative;
+        }
+        
+        .option input[type="radio"] {
+            border-radius: 50%;
+        }
+        
+        .option input[type="checkbox"]:hover,
+        .option input[type="radio"]:hover {
+            border-color: var(--accent);
+        }
+        
+        .option input[type="checkbox"]:checked,
+        .option input[type="radio"]:checked {
+            border-color: var(--accent);
+            background: var(--accent);
+        }
+        
+        .option input[type="checkbox"]:checked::after {
+            content: '✓';
+            font-size: 10px;
+            color: var(--bg-primary);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .option input[type="radio"]:checked::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--bg-primary);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        /* Hide the custom checkbox/radio spans */
+        .option .checkbox,
+        .option .radio {
+            display: none;
+        }
+        
+        .option.selected .radio::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--bg-primary);
+            border-radius: 50%;
+        }
+        
+        .option-label {
+            flex: 1;
+        }
+        
+        .option-label .name {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .option-label .desc {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+        
+        .option .badge {
+            font-size: 0.65rem;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+        }
+        
+        .option .badge.multisource {
+            background: linear-gradient(135deg, #00cc88, #0088cc);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-dim);
+        }
+        
+        .btn-primary:disabled {
+            background: var(--border);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+        
+        .btn-secondary {
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--text-secondary);
+        }
+        
+        .btn-danger {
+            background: transparent;
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+        
+        .btn-danger:hover {
+            background: rgba(255, 85, 85, 0.1);
+        }
+        
+        .terminal-container {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-primary);
+        }
+        
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .terminal-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .terminal-tab {
+            padding: 0.4rem 0.75rem;
+            font-size: 0.75rem;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+        
+        .terminal-tab.active {
+            background: var(--bg-elevated);
+            border-color: var(--border);
+            color: var(--text-primary);
+        }
+        
+        .terminal-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .terminal-action {
+            padding: 0.4rem;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .terminal-action:hover {
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+        }
+        
+        .terminal-output {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            font-size: 0.8rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        
+        .terminal-output .line {
+            margin-bottom: 2px;
+        }
+        
+        .terminal-output .success { color: var(--success); }
+        .terminal-output .error { color: var(--error); }
+        .terminal-output .warning { color: var(--warning); }
+        .terminal-output .info { color: var(--accent); }
+        .terminal-output .dim { color: var(--text-secondary); }
+        
+        .terminal-input {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            gap: 0.5rem;
+        }
+        
+        .terminal-input .prompt {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .terminal-input input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.85rem;
+            outline: none;
+        }
+        
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stat-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        
+        .stat-card .value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .stat-card .label {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background: var(--bg-elevated);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+        
+        .progress-bar .fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .results-preview {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.75rem;
+        }
+        
+        .results-preview h4 {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .result-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0;
+        }
+        
+        .result-item .icon { width: 14px; }
+        .result-item.pass .icon { color: var(--success); }
+        .result-item.fail .icon { color: var(--error); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-icon">GO</div>
+            <div>
+                <h1>System GO</h1>
+                <span>RangerIO Test Platform</span>
+            </div>
+        </div>
+        <div class="status-indicator">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="statusText">Checking backend...</span>
+        </div>
+    </header>
+    
+    <main>
+        <div class="config-panel">
+            <div class="stats-bar">
+                <div class="stat-card">
+                    <div class="value" id="statPassed">0</div>
+                    <div class="label">Passed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value" id="statFailed">0</div>
+                    <div class="label">Failed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value" id="statAccuracy">--</div>
+                    <div class="label">Accuracy</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value" id="statTime">0s</div>
+                    <div class="label">Time</div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Test Batches</div>
+                <div class="option-group" id="batchOptions">
+                    <label class="option selected">
+                        <input type="checkbox" name="batch" value="batch1" checked>
+                        <span class="checkbox"></span>
+                        <span class="option-label">
+                            <span class="name">Batch 1: Financial</span>
+                            <span class="desc">Profits, segments, margins</span>
+                        </span>
+                        <span class="badge">~10m</span>
+                    </label>
+                    <label class="option selected">
+                        <input type="checkbox" name="batch" value="batch2" checked>
+                        <span class="checkbox"></span>
+                        <span class="option-label">
+                            <span class="name">Batch 2: Sales Trends</span>
+                            <span class="desc">5-year time series analysis</span>
+                        </span>
+                        <span class="badge">~10m</span>
+                    </label>
+                    <label class="option selected">
+                        <input type="checkbox" name="batch" value="batch3" checked>
+                        <span class="checkbox"></span>
+                        <span class="option-label">
+                            <span class="name">Batch 3: PII Detection</span>
+                            <span class="desc">SSN, credit cards, passports</span>
+                        </span>
+                        <span class="badge">~10m</span>
+                    </label>
+                    <label class="option selected">
+                        <input type="checkbox" name="batch" value="batch4" checked>
+                        <span class="checkbox"></span>
+                        <span class="option-label">
+                            <span class="name">Batch 4: Data Quality</span>
+                            <span class="desc">Missing values, duplicates</span>
+                        </span>
+                        <span class="badge">~10m</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="batch" value="batch5">
+                        <span class="checkbox"></span>
+                        <span class="option-label">
+                            <span class="name">Batch 5: Multi-Source RAG</span>
+                            <span class="desc">Cross-document analysis, source coverage</span>
+                        </span>
+                        <span class="badge multisource">~15m</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Model</div>
+                <div class="option-group" id="modelOptions">
+                    <label class="option">
+                        <input type="radio" name="model" value="micro">
+                        <span class="radio"></span>
+                        <span class="option-label">
+                            <span class="name">Granite Micro</span>
+                            <span class="desc">Fast, ~500MB</span>
+                        </span>
+                        <span class="badge">3-10s</span>
+                    </label>
+                    <label class="option selected">
+                        <input type="radio" name="model" value="tiny" checked>
+                        <span class="radio"></span>
+                        <span class="option-label">
+                            <span class="name">Granite Tiny</span>
+                            <span class="desc">Balanced, ~700MB</span>
+                        </span>
+                        <span class="badge">5-15s</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Mode</div>
+                <div class="option-group" id="modeOptions">
+                    <label class="option">
+                        <input type="checkbox" name="assistant" value="true">
+                        <span class="checkbox"></span>
+                        <span class="option-label">
+                            <span class="name">Assistant Mode</span>
+                            <span class="desc">Smart routing, clarifications</span>
+                        </span>
+                    </label>
+                    <label class="option selected">
+                        <input type="checkbox" name="streaming" value="true" checked>
+                        <span class="checkbox"></span>
+                        <span class="option-label">
+                            <span class="name">Use Streaming</span>
+                            <span class="desc">Test UI endpoint</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Actions</div>
+                <button class="btn btn-primary" id="btnRun" onclick="runTests()">
+                    <span>▶</span> Run Selected Tests
+                </button>
+                <div class="progress-bar" id="progressBar" style="display: none;">
+                    <div class="fill" id="progressFill"></div>
+                </div>
+                <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+                    <button class="btn btn-secondary" onclick="stopTests()" style="flex: 1;">
+                        ■ Stop
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearTerminal()" style="flex: 1;">
+                        Clear
+                    </button>
+                </div>
+            </div>
+            
+            <div class="results-preview" id="resultsPreview" style="display: none;">
+                <h4>Latest Results</h4>
+                <div id="resultsList"></div>
+            </div>
+        </div>
+        
+        <div class="terminal-container">
+            <div class="terminal-header">
+                <div class="terminal-tabs">
+                    <button class="terminal-tab active" onclick="switchTab('output')">Output</button>
+                    <button class="terminal-tab" onclick="switchTab('results')">Results</button>
+                    <button class="terminal-tab" onclick="switchTab('config')">Config</button>
+                </div>
+                <div class="terminal-actions">
+                    <button class="terminal-action" onclick="scrollToBottom()" title="Scroll to bottom">↓</button>
+                    <button class="terminal-action" onclick="copyOutput()" title="Copy output">📋</button>
+                </div>
+            </div>
+            <div class="terminal-output" id="terminalOutput">
+<span class="info">╔══════════════════════════════════════════════════════════════╗</span>
+<span class="info">║  System GO - RangerIO Test Platform                          ║</span>
+<span class="info">╚══════════════════════════════════════════════════════════════╝</span>
+
+<span class="dim">Ready to run tests. Select options and click "Run Selected Tests".</span>
+
+<span class="dim">Available commands:</span>
+  <span class="success">run</span>     - Start selected tests
+  <span class="success">stop</span>    - Stop running tests
+  <span class="success">clear</span>   - Clear terminal
+  <span class="success">status</span>  - Check backend status
+  <span class="success">help</span>    - Show available commands
+
+</div>
+            <div class="terminal-input">
+                <span class="prompt">$</span>
+                <input type="text" id="commandInput" placeholder="Type command..." onkeypress="handleCommand(event)">
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // State
+        let isRunning = false;
+        let eventSource = null;
+        let stats = { passed: 0, failed: 0, accuracy: 0, time: 0 };
+        
+        // Check backend status via System GO proxy (avoids CORS issues)
+        async function checkBackend() {
+            const dot = document.getElementById('statusDot');
+            const text = document.getElementById('statusText');
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+                
+                // Use System GO server's /status endpoint which proxies to backend
+                const response = await fetch('/status', { signal: controller.signal });
+                clearTimeout(timeoutId);
+                
+                const data = await response.json();
+                if (data.backend === 'connected') {
+                    dot.className = 'status-dot connected';
+                    text.textContent = 'Backend connected';
+                    return true;
+                } else {
+                    dot.className = 'status-dot disconnected';
+                    text.textContent = 'Backend offline';
+                }
+            } catch (e) {
+                console.log('Status check failed:', e.message);
+                dot.className = 'status-dot disconnected';
+                text.textContent = 'Backend offline';
+            }
+            return false;
+        }
+        
+        // Initialize
+        checkBackend();
+        setInterval(checkBackend, 10000);
+        
+        // Option selection handlers - clicking anywhere on option toggles the input
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function(e) {
+                // If clicking directly on input, let browser handle it
+                if (e.target.tagName === 'INPUT') return;
+                
+                const input = this.querySelector('input');
+                if (input) {
+                    if (input.type === 'checkbox') {
+                        input.checked = !input.checked;
+                    } else if (input.type === 'radio') {
+                        input.checked = true;
+                    }
+                }
+            });
+        });
+        
+        // Get selected options
+        function getConfig() {
+            const batches = Array.from(document.querySelectorAll('input[name="batch"]:checked'))
+                .map(el => el.value);
+            const model = document.querySelector('input[name="model"]:checked')?.value || 'tiny';
+            const assistantMode = document.querySelector('input[name="assistant"]')?.checked || false;
+            const useStreaming = document.querySelector('input[name="streaming"]')?.checked || true;
+            
+            return { batches, model, assistantMode, useStreaming };
+        }
+        
+        // Terminal output
+        function log(message, type = '') {
+            const output = document.getElementById('terminalOutput');
+            const line = document.createElement('div');
+            line.className = `line ${type}`;
+            line.textContent = message;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        function clearTerminal() {
+            document.getElementById('terminalOutput').innerHTML = '';
+            log('Terminal cleared.', 'dim');
+        }
+        
+        function scrollToBottom() {
+            const output = document.getElementById('terminalOutput');
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        function copyOutput() {
+            const output = document.getElementById('terminalOutput').textContent;
+            navigator.clipboard.writeText(output);
+            log('Output copied to clipboard.', 'success');
+        }
+        
+        // Run tests
+        async function runTests() {
+            if (isRunning) return;
+            
+            const backendOk = await checkBackend();
+            if (!backendOk) {
+                log('ERROR: Backend is not available. Please start RangerIO first.', 'error');
+                return;
+            }
+            
+            const config = getConfig();
+            if (config.batches.length === 0) {
+                log('ERROR: Please select at least one batch to run.', 'error');
+                return;
+            }
+            
+            isRunning = true;
+            stats = { passed: 0, failed: 0, accuracy: 0, time: 0 };
+            updateStats();
+            
+            const btn = document.getElementById('btnRun');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner">⏳</span> Running...';
+            
+            const dot = document.getElementById('statusDot');
+            dot.className = 'status-dot running';
+            
+            document.getElementById('progressBar').style.display = 'block';
+            
+            log('', '');
+            log('═'.repeat(60), 'info');
+            log(`Starting tests: ${config.batches.join(', ')}`, 'info');
+            log(`Model: ${config.model}, Assistant: ${config.assistantMode}`, 'info');
+            log('═'.repeat(60), 'info');
+            log('', '');
+            
+            // Connect to test server
+            try {
+                const queryParams = new URLSearchParams({
+                    batches: config.batches.join(','),
+                    model: config.model,
+                    assistant: config.assistantMode,
+                    streaming: config.useStreaming
+                });
+                
+                eventSource = new EventSource(`http://127.0.0.1:9001/run?${queryParams}`);
+                
+                eventSource.onmessage = function(event) {
+                    const data = JSON.parse(event.data);
+                    handleEvent(data);
+                };
+                
+                eventSource.onerror = function(err) {
+                    log('Connection to test server lost. Retrying...', 'warning');
+                    // Will auto-reconnect
+                };
+                
+            } catch (e) {
+                log(`ERROR: ${e.message}`, 'error');
+                log('', '');
+                log('Make sure to start the test server:', 'dim');
+                log('  python3 system_go_server.py', 'dim');
+                stopTests();
+            }
+        }
+        
+        function handleEvent(data) {
+            switch (data.type) {
+                case 'log':
+                    log(data.message, data.level || '');
+                    break;
+                case 'progress':
+                    const fill = document.getElementById('progressFill');
+                    fill.style.width = `${data.percent}%`;
+                    break;
+                case 'result':
+                    if (data.passed) stats.passed++;
+                    else stats.failed++;
+                    if (data.accuracy) stats.accuracy = data.accuracy;
+                    stats.time = data.elapsed || stats.time;
+                    updateStats();
+                    break;
+                case 'complete':
+                    log('', '');
+                    log('═'.repeat(60), 'success');
+                    log('TESTS COMPLETE', 'success');
+                    log(`Passed: ${stats.passed}, Failed: ${stats.failed}`, 'success');
+                    log('═'.repeat(60), 'success');
+                    stopTests();
+                    break;
+                case 'error':
+                    log(`ERROR: ${data.message}`, 'error');
+                    break;
+            }
+        }
+        
+        function stopTests() {
+            isRunning = false;
+            if (eventSource) {
+                eventSource.close();
+                eventSource = null;
+            }
+            
+            const btn = document.getElementById('btnRun');
+            btn.disabled = false;
+            btn.innerHTML = '<span>▶</span> Run Selected Tests';
+            
+            const dot = document.getElementById('statusDot');
+            checkBackend();
+            
+            document.getElementById('progressBar').style.display = 'none';
+        }
+        
+        function updateStats() {
+            document.getElementById('statPassed').textContent = stats.passed;
+            document.getElementById('statFailed').textContent = stats.failed;
+            document.getElementById('statAccuracy').textContent = 
+                stats.accuracy > 0 ? `${stats.accuracy.toFixed(1)}` : '--';
+            document.getElementById('statTime').textContent = `${Math.round(stats.time)}s`;
+        }
+        
+        function handleCommand(event) {
+            if (event.key !== 'Enter') return;
+            
+            const input = document.getElementById('commandInput');
+            const cmd = input.value.trim().toLowerCase();
+            input.value = '';
+            
+            log(`$ ${cmd}`, 'dim');
+            
+            switch (cmd) {
+                case 'run':
+                    runTests();
+                    break;
+                case 'stop':
+                    stopTests();
+                    log('Tests stopped.', 'warning');
+                    break;
+                case 'clear':
+                    clearTerminal();
+                    break;
+                case 'status':
+                    checkBackend().then(ok => {
+                        log(ok ? 'Backend: Connected' : 'Backend: Offline', ok ? 'success' : 'error');
+                    });
+                    break;
+                case 'config':
+                    const cfg = getConfig();
+                    log(JSON.stringify(cfg, null, 2), 'dim');
+                    break;
+                case 'help':
+                    log('Available commands:', 'info');
+                    log('  run     - Start selected tests', '');
+                    log('  stop    - Stop running tests', '');
+                    log('  clear   - Clear terminal', '');
+                    log('  status  - Check backend status', '');
+                    log('  config  - Show current config', '');
+                    break;
+                default:
+                    log(`Unknown command: ${cmd}. Type 'help' for available commands.`, 'error');
+            }
+        }
+        
+        function switchTab(tab) {
+            document.querySelectorAll('.terminal-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (tab === 'config') {
+                const cfg = getConfig();
+                clearTerminal();
+                log('Current Configuration:', 'info');
+                log(JSON.stringify(cfg, null, 2), 'dim');
+            }
+        }
+    </script>
+</body>
+</html>

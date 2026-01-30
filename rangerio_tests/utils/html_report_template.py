@@ -1,0 +1,524 @@
+"""
+HTML report template generator for interactive validation
+"""
+
+def get_html_template(report_id: str, total_items: int) -> str:
+    """Generate HTML template with embedded CSS and JavaScript"""
+    
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RangerIO Interactive Validation Report - {report_id}</title>
+    <style>
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0e1a;
+            color: #e0e0e0;
+            padding: 20px;
+            line-height: 1.6;
+        }}
+        
+        .header {{
+            background: linear-gradient(135deg, #1a1f2e 0%, #2d3748 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid #3d4556;
+        }}
+        
+        .header h1 {{
+            color: #10b981;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }}
+        
+        .header .stats {{
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }}
+        
+        .stat {{
+            background: #1a1f2e;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid #3d4556;
+        }}
+        
+        .stat-label {{
+            color: #9ca3af;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }}
+        
+        .stat-value {{
+            color: #10b981;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 5px;
+        }}
+        
+        .validation-item {{
+            background: #1a1f2e;
+            border: 1px solid #3d4556;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }}
+        
+        .validation-item:hover {{
+            border-color: #10b981;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.1);
+        }}
+        
+        .validation-item.validated {{
+            border-color: #10b981;
+            background: #0f1419;
+        }}
+        
+        .item-header {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #3d4556;
+        }}
+        
+        .item-number {{
+            background: #10b981;
+            color: #0a0e1a;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }}
+        
+        .item-type {{
+            background: #3d4556;
+            color: #10b981;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }}
+        
+        .question {{
+            color: #10b981;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }}
+        
+        .answer {{
+            background: #0f1419;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #10b981;
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+        }}
+        
+        .contexts {{
+            margin: 20px 0;
+        }}
+        
+        .context {{
+            background: #0f1419;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 2px solid #6b7280;
+            font-size: 14px;
+            color: #9ca3af;
+        }}
+        
+        .chart-container {{
+            margin: 20px 0;
+            text-align: center;
+        }}
+        
+        .chart-container img {{
+            max-width: 100%;
+            border-radius: 8px;
+            border: 1px solid #3d4556;
+        }}
+        
+        .comparison-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }}
+        
+        .comparison-item {{
+            background: #0f1419;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #3d4556;
+        }}
+        
+        .style-tag {{
+            background: #10b981;
+            color: #0a0e1a;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }}
+        
+        .validation-form {{
+            background: #0f1419;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }}
+        
+        .validation-form h4 {{
+            color: #10b981;
+            margin-bottom: 15px;
+        }}
+        
+        .radio-group {{
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }}
+        
+        .radio-option {{
+            flex: 1;
+            min-width: 150px;
+        }}
+        
+        .radio-option input[type="radio"] {{
+            display: none;
+        }}
+        
+        .radio-option label {{
+            display: block;
+            padding: 12px 20px;
+            background: #1a1f2e;
+            border: 2px solid #3d4556;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }}
+        
+        .radio-option input[type="radio"]:checked + label {{
+            background: #10b981;
+            color: #0a0e1a;
+            border-color: #10b981;
+            font-weight: bold;
+        }}
+        
+        .radio-option.accurate label {{ border-color: #10b981; }}
+        .radio-option.partial label {{ border-color: #f59e0b; }}
+        .radio-option.inaccurate label {{ border-color: #ef4444; }}
+        
+        textarea {{
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            background: #1a1f2e;
+            border: 1px solid #3d4556;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-family: inherit;
+            resize: vertical;
+        }}
+        
+        textarea:focus {{
+            outline: none;
+            border-color: #10b981;
+        }}
+        
+        .actions {{
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }}
+        
+        .btn {{
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 16px;
+        }}
+        
+        .btn-primary {{
+            background: #10b981;
+            color: #0a0e1a;
+        }}
+        
+        .btn-primary:hover {{
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }}
+        
+        .btn-secondary {{
+            background: #3d4556;
+            color: #e0e0e0;
+        }}
+        
+        .btn-secondary:hover {{
+            background: #4b5563;
+        }}
+        
+        .progress {{
+            background: #1a1f2e;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-right: auto;
+        }}
+        
+        .save-notification {{
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: #0a0e1a;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+        }}
+        
+        @keyframes slideIn {{
+            from {{ transform: translateX(400px); opacity: 0; }}
+            to {{ transform: translateX(0); opacity: 1; }}
+        }}
+        
+        .metadata {{
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 10px;
+        }}
+        
+        .instructions {{
+            background: #1a1f2e;
+            border: 1px solid #3d4556;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }}
+        
+        .instructions h3 {{
+            color: #10b981;
+            margin-bottom: 10px;
+        }}
+        
+        .instructions ol {{
+            margin-left: 20px;
+            color: #9ca3af;
+        }}
+        
+        .instructions li {{
+            margin-bottom: 8px;
+        }}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧪 RangerIO Interactive Validation Report</h1>
+        <p style="color: #9ca3af; margin-top: 10px;">Report ID: {report_id}</p>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-label">Total Items</div>
+                <div class="stat-value" id="total-items">{total_items}</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Validated</div>
+                <div class="stat-value" id="validated-count">0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Pending</div>
+                <div class="stat-value" id="pending-count">{total_items}</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="instructions">
+        <h3>📝 How to Use This Report</h3>
+        <ol>
+            <li><strong>Review each item</strong> - Read the question, answer, and contexts carefully</li>
+            <li><strong>Select accuracy rating</strong> - Choose ✅ Accurate, ⚠️ Partial, or ❌ Inaccurate</li>
+            <li><strong>Add notes</strong> - Explain your reasoning, especially for partial/inaccurate items</li>
+            <li><strong>Auto-saves</strong> - Progress saves every 30 seconds automatically</li>
+            <li><strong>Export when done</strong> - Click "Export Results" to download JSON file</li>
+        </ol>
+    </div>
+    
+    <div id="validation-items">
+        <!-- Items will be inserted here -->
+    </div>
+    
+    <div class="actions">
+        <div class="progress">
+            <span id="progress-text">0 / {total_items} validated</span>
+        </div>
+        <button class="btn btn-secondary" onclick="autoSave()">💾 Auto-Save</button>
+        <button class="btn btn-primary" onclick="exportResults()">📥 Export Results</button>
+    </div>
+    
+    <div class="save-notification" id="save-notification">
+        ✅ Progress auto-saved!
+    </div>
+    
+    <script>
+        const REPORT_ID = '{report_id}';
+        
+        // Auto-save every 30 seconds
+        let autoSaveInterval = setInterval(autoSave, 30000);
+        
+        // Load previous responses if available
+        window.addEventListener('DOMContentLoaded', loadSavedResponses);
+        
+        // Save on any change
+        document.addEventListener('change', function(e) {{
+            if (e.target.matches('input[type="radio"], textarea')) {{
+                autoSave();
+                updateStats();
+            }}
+        }});
+        
+        function loadSavedResponses() {{
+            const saved = localStorage.getItem('validation_responses_' + REPORT_ID);
+            if (saved) {{
+                const responses = JSON.parse(saved);
+                for (const [itemId, data] of Object.entries(responses)) {{
+                    const radio = document.querySelector(`input[name="validation_${{itemId}}"][value="${{data.choice}}"]`);
+                    if (radio) radio.checked = true;
+                    
+                    const notes = document.querySelector(`textarea[name="notes_${{itemId}}"]`);
+                    if (notes) notes.value = data.notes || '';
+                }}
+                updateStats();
+                console.log('✓ Loaded saved responses');
+            }}
+        }}
+        
+        function autoSave() {{
+            const responses = {{}};
+            const items = document.querySelectorAll('.validation-item');
+            
+            items.forEach(item => {{
+                const itemId = item.dataset.itemId;
+                const radio = item.querySelector('input[type="radio"]:checked');
+                const notes = item.querySelector('textarea');
+                
+                if (radio || (notes && notes.value)) {{
+                    responses[itemId] = {{
+                        choice: radio ? radio.value : null,
+                        notes: notes ? notes.value : '',
+                        timestamp: new Date().toISOString()
+                    }};
+                }}
+            }});
+            
+            localStorage.setItem('validation_responses_' + REPORT_ID, JSON.stringify(responses));
+            
+            // Show notification
+            const notification = document.getElementById('save-notification');
+            notification.style.display = 'block';
+            setTimeout(() => {{
+                notification.style.display = 'none';
+            }}, 2000);
+        }}
+        
+        function updateStats() {{
+            const items = document.querySelectorAll('.validation-item');
+            let validated = 0;
+            
+            items.forEach(item => {{
+                const radio = item.querySelector('input[type="radio"]:checked');
+                if (radio) {{
+                    validated++;
+                    item.classList.add('validated');
+                }} else {{
+                    item.classList.remove('validated');
+                }}
+            }});
+            
+            document.getElementById('validated-count').textContent = validated;
+            document.getElementById('pending-count').textContent = items.length - validated;
+            document.getElementById('progress-text').textContent = `${{validated}} / ${{items.length}} validated`;
+        }}
+        
+        function exportResults() {{
+            const responses = {{}};
+            const items = document.querySelectorAll('.validation-item');
+            
+            items.forEach(item => {{
+                const itemId = item.dataset.itemId;
+                const itemType = item.dataset.itemType;
+                const radio = item.querySelector('input[type="radio"]:checked');
+                const notes = item.querySelector('textarea');
+                
+                responses[itemId] = {{
+                    item_id: parseInt(itemId),
+                    item_type: itemType,
+                    choice: radio ? radio.value : 'not_validated',
+                    notes: notes ? notes.value : '',
+                    timestamp: new Date().toISOString()
+                }};
+            }});
+            
+            const result = {{
+                report_id: REPORT_ID,
+                generated_at: new Date().toISOString(),
+                total_items: items.length,
+                validated_items: Object.values(responses).filter(r => r.choice !== 'not_validated').length,
+                responses: responses
+            }};
+            
+            // Download as JSON
+            const blob = new Blob([JSON.stringify(result, null, 2)], {{type: 'application/json'}});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'validation_results_' + REPORT_ID + '.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // Also save to localStorage as backup
+            localStorage.setItem('validation_results_' + REPORT_ID, JSON.stringify(result));
+            
+            alert('✅ Results exported successfully!\\n\\nFile: validation_results_' + REPORT_ID + '.json\\nItems validated: ' + result.validated_items + ' / ' + result.total_items);
+        }}
+        
+        // Update stats on load
+        updateStats();
+    </script>
+</body>
+</html>
+"""
+
+
+
+
+
+
+
+

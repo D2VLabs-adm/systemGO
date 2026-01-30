@@ -1,0 +1,101 @@
+
+AUDIT FINDINGS - DRAFT
+Acme Corporation - FY 2023
+Prepared by: Anderson & Associates, CPAs
+Date: October 5, 2023
+
+---
+
+EXECUTIVE SUMMARY
+
+This report presents preliminary findings from our audit of Acme Corporation's 
+financial statements for the fiscal year ending December 31, 2023.
+
+Overall Assessment: SATISFACTORY with minor exceptions
+
+---
+
+FINDINGS REQUIRING MANAGEMENT RESPONSE
+
+Finding 1: Capital Expenditure Documentation [MEDIUM PRIORITY]
+
+During our review, we identified equipment purchases totaling $180,000 that:
+- Were approved under CEO discretionary authority
+- Lack complete supporting documentation
+- Do not appear in the approved capital budget
+- Are not reflected in Q3 cash flow statement
+
+The expenditures include:
+- CNC Machine: $95,000 (Invoice #INV-2023-0847, approved by J. Smith)
+- Laser Cutter: $45,000 (Invoice #INV-2023-0923, approved by J. Smith)  
+- Quality Control Equipment: $40,000 (Invoice #INV-2023-0956, approved by J. Smith)
+
+TOTAL: $180,000
+
+Management Response Required:
+1. Provide purchase authorization documentation
+2. Explain absence from cash flow projections
+3. Reconcile with capital budget
+
+---
+
+Finding 2: Revenue Recognition Timing [LOW PRIORITY]
+
+Board minutes reference Q3 revenue of $2,150,000, while Income Statement 
+shows full-year revenue of $8,500,000 (implying Q3 actual was $2,125,000).
+
+Difference: $25,000
+
+This appears to be a timing difference related to one large customer order
+recognized in different periods for management vs. GAAP reporting.
+
+Recommendation: Clarify revenue recognition policies for board reporting.
+
+---
+
+Finding 3: Debt Refinancing Documentation [INFORMATIONAL]
+
+Board approved debt refinancing from $1,800,000 to $2,100,000 on September 15.
+As of October 5, loan documents are still pending final execution.
+
+Current balance sheet shows $1,800,000 (unchanged).
+
+No action required - transaction in progress.
+
+---
+
+TRANSACTIONS REQUIRING REVIEW
+
+The following transactions have been flagged for management review:
+
+1. Equipment Purchase #1 (Aug 15, 2023)
+   - Amount: $95,000
+   - Vendor: MachineWorks Inc.
+   - Approver: John Smith (CEO)
+   - Missing: Board approval for >$50K purchase
+   
+2. Equipment Purchase #2 (Sep 8, 2023)
+   - Amount: $45,000  
+   - Vendor: Laser Systems LLC
+   - Approver: John Smith (CEO)
+   - Missing: Competitive bid documentation
+   
+3. Consulting Fees (Jul-Sep 2023)
+   - Amount: $75,000
+   - Vendor: Strategic Advisors Group
+   - Approver: Sarah Johnson (CFO)
+   - Missing: Scope of work documentation
+
+Board policy requires approval for expenditures >$50,000.
+
+---
+
+NEXT STEPS
+
+1. Management response due: October 20, 2023
+2. Follow-up review scheduled: November 1, 2023
+3. Final audit report target: November 30, 2023
+
+---
+
+DRAFT - FOR INTERNAL USE ONLY
