@@ -4,6 +4,44 @@
 
 **⚠️ IMPORTANT: This includes a complete Investigation & Repair workflow - not just pass/fail reporting!**
 
+## 📥 Installation (Client Setup)
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/D2VLabs-adm/systemGO.git
+cd systemGO
+```
+
+### 2. Create Virtual Environment
+
+```bash
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+
+# For E2E tests (optional)
+playwright install chromium
+```
+
+### 4. Download Kaggle Datasets (Optional)
+
+For extended test coverage with real-world datasets:
+
+```bash
+# Set up Kaggle API key first: https://www.kaggle.com/settings/account
+# Save to ~/.kaggle/kaggle.json
+
+python rangerio_tests/utils/kaggle_dataset_downloader.py
+```
+
+---
+
 ## 📋 Overview
 
 SYSTEM GO is a production-grade testing suite that validates RangerIO's:
@@ -34,11 +72,11 @@ Ensure RangerIO is running:
 - **Backend**: http://127.0.0.1:9000
 - **Frontend**: http://localhost:5173
 
-### 2. Setup
+### 2. Activate Environment
 
 ```bash
-cd "/Users/vadim/.cursor/worktrees/Validator/SYSTEM GO"
-source venv/bin/activate  # Already created
+cd systemGO
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
 ### 3. Run All Tests
@@ -328,19 +366,23 @@ TEST_MODEL_NAME="qwen3-4b-q4-k-m" PYTHONPATH=. pytest rangerio_tests/ -v
 
 **Backend not available:**
 ```bash
-cd /Users/vadim/.cursor/worktrees/rangerio-backend__Workspace_/udp
+# Navigate to your RangerIO installation directory
+cd /path/to/rangerio-backend
 python api/server.py
+# Or use: python -m uvicorn api.server:app --port 9000
 ```
 
 **Frontend not loading:**
 ```bash
-cd /Users/vadim/.cursor/worktrees/rangerio-backend__Workspace_/udp/frontend
+cd /path/to/rangerio-backend/frontend
 npm run dev
 ```
 
 **Import errors:**
 ```bash
-export PYTHONPATH=/Users/vadim/.cursor/worktrees/Validator/SYSTEM\ GO
+# Set PYTHONPATH to your systemGO directory
+export PYTHONPATH=$(pwd)
+# Or explicitly: export PYTHONPATH=/path/to/systemGO
 ```
 
 **Playwright issues:**
@@ -350,9 +392,9 @@ playwright install chromium --force
 
 ## 📚 Additional Resources
 
-- **RangerIO Workspace**: `/Users/vadim/.cursor/worktrees/rangerio-backend__Workspace_/udp`
-- **Backend API Docs**: http://127.0.0.1:9000/docs
-- **Test Plan**: See plan file for detailed implementation
+- **GitHub Repo**: https://github.com/D2VLabs-adm/systemGO
+- **Backend API Docs**: http://127.0.0.1:9000/docs (when RangerIO is running)
+- **Test Plan**: See `TESTING_EXECUTION_PLAN.md` for detailed implementation
 
 ## 🎉 Success Metrics
 
