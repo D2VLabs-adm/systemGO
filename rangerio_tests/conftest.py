@@ -69,6 +69,12 @@ def api_client(rangerio_backend_url):
             return self.session.get(f"{self.base_url}{endpoint}", **kwargs)
         
         def post(self, endpoint, **kwargs):
+            # Auto-enable assistant_mode for RAG queries (unless explicitly disabled)
+            # Assistant mode optimizes most RangerIO capabilities and should be the default
+            if "/rag/query" in endpoint and "json" in kwargs:
+                json_data = kwargs["json"]
+                if isinstance(json_data, dict) and "assistant_mode" not in json_data:
+                    json_data["assistant_mode"] = True
             return self.session.post(f"{self.base_url}{endpoint}", **kwargs)
         
         def put(self, endpoint, **kwargs):
