@@ -267,6 +267,89 @@ class AccuracyEvaluator:
             len(result.contains_forbidden) == 0
         )
     
+    def _extract_json_from_llm(self, response: str) -> Optional[Dict[str, Any]]:
+        """
+        Robust JSON extraction from LLM output.
+        Handles markdown code blocks, nested objects, and various formats.
+        """
+        if not response:
+            return None
+        
+        # Strategy 1: Direct parse (cleanest case)
+        try:
+            return json.loads(response.strip())
+        except json.JSONDecodeError:
+            pass
+        
+        # Strategy 2: Remove markdown code blocks
+        cleaned = response
+        # Remove ```json ... ``` or ``` ... ```
+        cleaned = re.sub(r'```(?:json)?\s*\n?', '', cleaned)
+        cleaned = re.sub(r'\n?```', '', cleaned)
+        cleaned = cleaned.strip()
+        
+        try:
+            return json.loads(cleaned)
+        except json.JSONDecodeError:
+            pass
+        
+        # Strategy 3: Find JSON object with brace matching (handles nested)
+        try:
+            start = cleaned.find('{')
+            if start >= 0:
+                depth = 0
+                in_string = False
+                escape_next = False
+                for i, c in enumerate(cleaned[start:], start):
+                    if escape_next:
+                        escape_next = False
+                        continue
+                    if c == '\\':
+                        escape_next = True
+                        continue
+                    if c == '"' and not escape_next:
+                        in_string = not in_string
+                        continue
+                    if in_string:
+                        continue
+                    if c == '{':
+                        depth += 1
+                    elif c == '}':
+                        depth -= 1
+                        if depth == 0:
+                            json_str = cleaned[start:i+1]
+                            return json.loads(json_str)
+        except json.JSONDecodeError:
+            pass
+        
+        # Strategy 4: Try to extract key-value pairs manually
+        try:
+            result = {}
+            # Look for accuracy: N or "accuracy": N patterns
+            acc_match = re.search(r'"?accuracy"?\s*[:\s]\s*(\d+(?:\.\d+)?)', cleaned, re.IGNORECASE)
+            if acc_match:
+                result['accuracy'] = float(acc_match.group(1))
+            
+            rel_match = re.search(r'"?relevance"?\s*[:\s]\s*(\d+(?:\.\d+)?)', cleaned, re.IGNORECASE)
+            if rel_match:
+                result['relevance'] = float(rel_match.group(1))
+            
+            hall_match = re.search(r'"?hallucinated?"?\s*[:\s]\s*(true|false)', cleaned, re.IGNORECASE)
+            if hall_match:
+                result['hallucinated'] = hall_match.group(1).lower() == 'true'
+            
+            logic_match = re.search(r'"?logical"?\s*[:\s]\s*(true|false)', cleaned, re.IGNORECASE)
+            if logic_match:
+                result['logical'] = logic_match.group(1).lower() == 'true'
+            
+            if result:  # Found at least something
+                return result
+        except Exception:
+            pass
+        
+        self.logger.debug(f"Could not extract JSON from: {response[:200]}...")
+        return None
+    
     def _ai_evaluate(
         self,
         spec: QuerySpec,
@@ -274,26 +357,29 @@ class AccuracyEvaluator:
         data_context: Optional[str],
         result: EvaluationResult
     ):
-        """Use AI to evaluate response accuracy"""
-        eval_prompt = f"""You are evaluating a data analysis response for accuracy.
+        """Use AI to evaluate response accuracy with robust JSON parsing"""
+        # Improved prompt - more explicit format, examples
+        eval_prompt = f"""Evaluate this data analysis response. Output ONLY a JSON object.
 
-ORIGINAL QUERY: {spec.query}
-QUERY TYPE: {spec.query_type.value}
+QUESTION: {spec.query}
+TYPE: {spec.query_type.value}
 
-RESPONSE TO EVALUATE:
+RESPONSE:
 {response[:1500]}
 
-{f"DATA CONTEXT (for reference): {data_context[:1000]}" if data_context else ""}
+{f"DATA CONTEXT: {data_context[:800]}" if data_context else ""}
 
-Evaluate the response on these criteria:
-1. ACCURACY (1-10): Is the response factually correct? Does it use real data?
-2. RELEVANCE (1-10): Does it directly answer the question asked?
-3. HALLUCINATION: Does it make claims not supported by data? (true/false)
-4. LOGICAL: Is the reasoning/calculation logical? (true/false)
+Score the response:
+- accuracy: 1-10 (10=perfectly correct, uses real data)
+- relevance: 1-10 (10=directly answers the question)
+- hallucinated: true/false (true if contains unsupported claims)
+- logical: true/false (true if reasoning is sound)
+- issues: list of problems (empty if none)
 
-Return ONLY valid JSON (no markdown, no explanation):
-{{"accuracy": 8, "relevance": 9, "hallucinated": false, "logical": true, "issues": []}}
-"""
+OUTPUT FORMAT (copy this structure exactly):
+{{"accuracy":7,"relevance":8,"hallucinated":false,"logical":true,"issues":[]}}
+
+Your JSON evaluation:"""
         
         try:
             # Use the RangerIO backend's LLM for evaluation
@@ -301,19 +387,20 @@ Return ONLY valid JSON (no markdown, no explanation):
                 f"{self.backend_url}/llm/generate",
                 json={
                     "prompt": eval_prompt,
-                    "max_tokens": 200,
-                    "temperature": 0.1  # Low temp for consistent evaluation
+                    "max_tokens": 250,
+                    "temperature": 0.05  # Very low temp for consistent JSON output
                 },
-                timeout=60
+                timeout=90
             )
             
             if eval_response.status_code == 200:
                 eval_text = eval_response.json().get("response", "")
+                self.logger.debug(f"Raw LLM evaluation response: {eval_text[:300]}")
                 
-                # Extract JSON from response
-                json_match = re.search(r'\{[^}]+\}', eval_text)
-                if json_match:
-                    ai_result = json.loads(json_match.group())
+                # Use robust JSON extraction
+                ai_result = self._extract_json_from_llm(eval_text)
+                
+                if ai_result:
                     result.ai_evaluation = ai_result
                     
                     # Update scores from AI evaluation
@@ -325,15 +412,19 @@ Return ONLY valid JSON (no markdown, no explanation):
                         result.issues.append("AI detected potential hallucination")
                     if ai_result.get("logical") is False:
                         result.issues.append("AI detected illogical reasoning")
-                    if ai_result.get("issues"):
-                        result.issues.extend(ai_result["issues"])
+                    if ai_result.get("issues") and isinstance(ai_result["issues"], list):
+                        result.issues.extend([str(i) for i in ai_result["issues"]])
+                    
+                    self.logger.debug(f"AI evaluation parsed: accuracy={ai_result.get('accuracy')}, relevance={ai_result.get('relevance')}")
+                else:
+                    self.logger.warning(f"Could not parse AI evaluation from: {eval_text[:200]}")
+                    # Fallback: use pattern-based scores only
+                    
             else:
                 self.logger.warning(f"AI evaluation failed: {eval_response.status_code}")
                 
         except requests.exceptions.Timeout:
-            self.logger.warning("AI evaluation timed out")
-        except json.JSONDecodeError as e:
-            self.logger.warning(f"Failed to parse AI evaluation: {e}")
+            self.logger.warning("AI evaluation timed out - using pattern-based evaluation only")
         except Exception as e:
             self.logger.warning(f"AI evaluation error: {e}")
     
